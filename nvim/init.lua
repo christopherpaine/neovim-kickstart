@@ -1,12 +1,12 @@
-vim.loader.enable()
-
-local cmd = vim.cmd
-local opt = vim.o
-
 -- <leader> key. Defaults to `\`. Some people prefer space.
 -- The default leader is '\'. Some people prefer <space>. Uncomment this if you do, too.
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
+
+vim.loader.enable()
+
+local cmd = vim.cmd
+local opt = vim.o
 
 -- See :h <option> to see what the options do
 
