@@ -100,4 +100,6 @@ vim.g.sqlite_clib_path = require('luv').os_getenv('LIBSQLITE')
 -- some personal bindings
 vim.keymap.set('n', '<A-w>', ':w<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '<A-v>', ':put +<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>e', vim.cmd.Ex, { desc = 'Open netrw' })
+
 vim.keymap.set('v', '<A-c>', '"+y', { noremap = true, silent = true })
