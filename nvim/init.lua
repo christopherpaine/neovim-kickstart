@@ -1,9 +1,11 @@
+vim.loader.enable()
+
+
 -- <leader> key. Defaults to `\`. Some people prefer space.
 -- The default leader is '\'. Some people prefer <space>. Uncomment this if you do, too.
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
-vim.loader.enable()
 
 local cmd = vim.cmd
 local opt = vim.o
@@ -93,3 +95,9 @@ cmd.packadd('cfilter') -- Allows filtering the quickfix list with :cfdo
 
 -- let sqlite.lua (which some plugins depend on) know where to find sqlite
 vim.g.sqlite_clib_path = require('luv').os_getenv('LIBSQLITE')
+
+
+-- some personal bindings
+vim.keymap.set('n', '<A-w>', ':w<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<A-v>', ':put +<CR>', { noremap = true, silent = true })
+
