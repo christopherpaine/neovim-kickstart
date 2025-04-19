@@ -106,3 +106,8 @@ vim.keymap.set('n', 'Q', function()
   vim.cmd('mksession!')
   vim.cmd('q')
 end, { desc = 'Save session and quit' })
+
+vim.keymap.set('n', '<A-r>', function()
+  local path = vim.fn.expand('%:p:h')
+  os.execute('tmux new-window -c "' .. path .. '" ranger')
+end, { noremap = true, silent = true })
