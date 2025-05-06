@@ -103,6 +103,8 @@ vim.g.sqlite_clib_path = require('luv').os_getenv('LIBSQLITE')
 
 
 -- some personal bindings
+
+vim.keymap.set('n', '<A-w>', ':w<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '<A-w>', ':w<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '<A-v>', ':put +<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>E', vim.cmd.Ex, { desc = 'Open netrw' })
@@ -116,3 +118,9 @@ vim.keymap.set('n', '<A-r>', function()
   local path = vim.fn.expand('%:p:h')
   os.execute('tmux new-window -c "' .. path .. '" ranger')
 end, { noremap = true, silent = true })
+-- Move to the next buffer
+vim.keymap.set('n', '<Tab>', '<cmd>BufferLineCycleNext<CR>', { desc = "Next buffer" })
+
+-- Move to the previous buffer
+vim.keymap.set('n', '<S-Tab>', '<cmd>BufferLineCyclePrev<CR>', { desc = "Previous buffer" })
+
