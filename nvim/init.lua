@@ -1,15 +1,15 @@
 vim.loader.enable()
 
+-- <leader> key. Defaults to `\`. Some people prefer space.
+-- The default leader is '\'. Some people prefer <space>. Uncomment this if you do, too.
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
+
 
 
 require("bufferline").setup{}
 
 
-
--- <leader> key. Defaults to `\`. Some people prefer space.
--- The default leader is '\'. Some people prefer <space>. Uncomment this if you do, too.
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
 
 
 local cmd = vim.cmd
