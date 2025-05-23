@@ -30,9 +30,10 @@ with final.pkgs.lib; let
   all-plugins = with pkgs.vimPlugins; [
     # plugins from nixpkgs go in here.
     # https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=packages&query=vimPlugins
+    vim-visual-multi
     bufferline-nvim
     undotree
-    auto-session
+#   auto-session
     nvim-notify
     nvim-treesitter.withAllGrammars
     luasnip # snippets | https://github.com/l3mon4d3/luasnip/
