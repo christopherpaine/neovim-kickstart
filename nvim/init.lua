@@ -7,6 +7,13 @@ vim.g.maplocalleader = ' '
 
 
 
+vim.opt.ignorecase = true
+vim.opt.scrolloff = 999
+
+
+
+
+
 require("bufferline").setup{}
 
 
