@@ -145,3 +145,6 @@ vim.keymap.set('n', '<Tab>', '<cmd>BufferLineCycleNext<CR>', { desc = "Next buff
 -- Move to the previous buffer
 vim.keymap.set('n', '<S-Tab>', '<cmd>BufferLineCyclePrev<CR>', { desc = "Previous buffer" })
 
+
+-- Optional: set the leader key for emmet (default is <C-y>)
+vim.g.user_emmet_leader_key = '<C-y>'
