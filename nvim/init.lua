@@ -157,4 +157,4 @@ vim.cmd([[
 
 
 
-
+ vim.api.nvim_set_keymap('n', '<leader>ml', 'i[<C-r><C-w>](<Esc>pa)<Esc>', {noremap = true, silent = true })
