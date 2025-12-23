@@ -254,6 +254,6 @@ function Street()
     vim.api.nvim_buf_set_lines(0, row, row, false, vim.split(iframe, "\n"))
 
     print("Iframe inserted with correct view")
-e
+end
 
 
