@@ -158,3 +158,32 @@ vim.cmd([[
 
 
  vim.keymap.set('n', '<leader>ml', 'i[<C-r><C-w>](<Esc>pa)<Esc>', {noremap = true, silent = true })
+
+
+
+
+
+
+
+function InsertFrontMatter(parent)
+    local filename = vim.fn.expand('%:t:r')
+    filename = filename:gsub("-", " ")
+    filename = filename:gsub("(%w+)", function(w) return w:sub(1,1):upper() .. w:sub(2) end)
+
+    local lines = {
+        '---',
+        'layout: default',
+        'title: ' .. filename,
+        'parent: ' .. parent,
+        '---',
+        ''
+    }
+
+    vim.api.nvim_buf_set_lines(0, 0, 0, false, lines)
+end
+
+
+
+
+
+
