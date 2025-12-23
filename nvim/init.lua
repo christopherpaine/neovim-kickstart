@@ -185,8 +185,7 @@ end
 
 
 
-function Street()
-
+_G.Street = function()
 
 --  • local url: Declares a local variable named url.                              
 --  • vim.fn.getreg('+'): Calls the Neovim function getreg to get the contents of  
