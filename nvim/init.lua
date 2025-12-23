@@ -185,5 +185,75 @@ end
 
 
 
+function Street()
+
+
+--  • local url: Declares a local variable named url.                              
+--  • vim.fn.getreg('+'): Calls the Neovim function getreg to get the contents of  
+--    the register specified by '+', which is typically the system clipboard.      
+
+
+  local url = vim.fn.getreg('+')
+    if url == '' then
+        print("Clipboard is empty")
+        return
+    end
+
+
+--  • url is the string you want to search.                                        
+--  • pattern is the Lua pattern you want to match against the string.             
+-- 
+-- The function returns the first occurrence of the pattern in the string. If no   
+-- match is found, it returns nil. Lua patterns are similar to regular expressions 
+-- but have a different syntax and capabilities.                                   
+    -- Extract lat, lng, heading, pitch
+    local lat, lng, heading, pitch = url:match("@([%d%.%-]+),([%d%.%-]+),3a,[^,]*y,([%d%.%-]+)h,([%d%.%-]+)t")
+-- • .: Matches any character except a newline.                                   
+-- • %a: Matches any letter.                                                      
+-- • %d: Matches any digit.                                                       
+-- • %s: Matches any space character.                                             
+-- • *: Matches 0 or more repetitions of the previous character/class.            
+-- • +: Matches 1 or more repetitions of the previous character/class.            
+-- • ?: Matches 0 or 1 occurrence of the previous character/class.                
+
+
+
+    if not lat or not lng or not heading or not pitch then
+        print("Failed to parse coordinates")
+        return
+    end
+    lat, lng, heading, pitch = tonumber(lat), tonumber(lng), tonumber(heading), tonumber(pitch)
+
+    -- Extract pano ID (robust: after !1s... in the URL)
+    local pano = url:match("!1s([%w-_]+)")
+    if not pano then
+        print("Failed to parse pano ID")
+        return
+    end
+
+
+    local pitch_for_iframe = 0  -- default value
+    local pitch = url:match("pitch=([%d%.%-]+)")
+    if pitch then
+        pitch_for_iframe = tonumber(pitch)
+    end
+
+
+
+
+
+    -- Generate iframe string
+    local iframe = string.format([[
+<iframe 
+  src="https://www.google.com/maps/embed?pb=!6m8!1m7!1s%s!2m2!1d%.7f!2d%.7f!3f%.2f!4f%.2f!5f0.7820865974627469" 
+  width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+</iframe>]], pano, lat, lng, heading, pitch_for_iframe)
+
+    -- Insert at cursor
+    local row = vim.api.nvim_win_get_cursor(0)[1]
+    vim.api.nvim_buf_set_lines(0, row, row, false, vim.split(iframe, "\n"))
+
+    print("Iframe inserted with correct view")
+e
 
 
