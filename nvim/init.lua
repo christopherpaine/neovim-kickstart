@@ -166,6 +166,7 @@ vim.cmd([[
 
 
 _G.InsertFrontMatter = function(parent)
+    parent = parent or "Exploration"  -- default value
     local filename = vim.fn.expand('%:t:r')
     filename = filename:gsub("-", " ")
     filename = filename:gsub("(%w+)", function(w) return w:sub(1,1):upper() .. w:sub(2) end)
