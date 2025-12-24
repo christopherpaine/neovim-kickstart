@@ -254,7 +254,8 @@ _G.Street = function()
     vim.api.nvim_buf_set_lines(0, row, row, false, vim.split(iframe, "\n"))
 
     vim.cmd("normal! G")
-
+    vim.cmd("normal! o<Esc>o<Esc>")
+    vim.cmd("normal! G")
 
 
 
