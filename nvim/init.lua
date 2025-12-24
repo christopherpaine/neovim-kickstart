@@ -253,6 +253,13 @@ _G.Street = function()
     local row = vim.api.nvim_win_get_cursor(0)[1]
     vim.api.nvim_buf_set_lines(0, row, row, false, vim.split(iframe, "\n"))
 
+    vim.cmd("normal! G")
+
+
+
+
+
+
     print("Iframe inserted with correct view")
 end
 
