@@ -85,13 +85,33 @@ vim.keymap.set(
 )
 
 
+
 vim.keymap.set('n', '<leader>ta', function()
   require('telescope.builtin').find_files {
     hidden = true,
     no_ignore = true,
     no_ignore_parent = true,
+    attach_mappings = function(prompt_bufnr, map)
+      local actions = require('telescope.actions')
+      local action_state = require('telescope.actions.state')
+
+      -- Ctrl-Y copies the selected file path to clipboard
+      map('i', '<C-y>', function()
+        local selection = action_state.get_selected_entry()
+        vim.fn.setreg('+', selection.path)
+        actions.close(prompt_bufnr)
+      end)
+      map('n', '<C-y>', function()
+        local selection = action_state.get_selected_entry()
+        vim.fn.setreg('+', selection.path)
+        actions.close(prompt_bufnr)
+      end)
+
+      return true  -- keep default mappings like <CR>
+    end,
   }
 end, { desc = '[t]elescope find [a]ll files' })
+
 
 
 vim.keymap.set('n', '<leader>*', builtin.grep_string, { desc = '[telescope] grep current string [*]' })
