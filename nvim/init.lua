@@ -241,7 +241,6 @@ _G.Street = function()
 
 
 
-
     -- Generate iframe string
     local iframe = string.format([[
 <iframe 
@@ -254,7 +253,8 @@ _G.Street = function()
     vim.api.nvim_buf_set_lines(0, row, row, false, vim.split(iframe, "\n"))
 
     vim.cmd("normal! G")
-    vim.cmd("normal! o<Esc>o<Esc>")
+
+    vim.cmd([[put =repeat([''], 2)]])
     vim.cmd("normal! G")
 
 
@@ -263,5 +263,18 @@ _G.Street = function()
 
     print("Iframe inserted with correct view")
 end
+
+
+
+vim.keymap.set(
+  'n',
+  '<leader>mm',
+  function() Street() end,
+  { noremap = true, silent = true }
+)
+
+
+
+
 
 

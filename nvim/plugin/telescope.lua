@@ -83,6 +83,17 @@ vim.keymap.set(
   grep_string_current_file_type,
   { desc = '[t]elescope grep current string [*] in current filetype' }
 )
+
+
+vim.keymap.set('n', '<leader>ta', function()
+  require('telescope.builtin').find_files {
+    hidden = true,
+    no_ignore = true,
+    no_ignore_parent = true,
+  }
+end, { desc = '[t]elescope find [a]ll files' })
+
+
 vim.keymap.set('n', '<leader>*', builtin.grep_string, { desc = '[telescope] grep current string [*]' })
 vim.keymap.set('n', '<leader>tg', project_files, { desc = '[t]elescope project files [g]' })
 vim.keymap.set('n', '<leader>tc', builtin.quickfix, { desc = '[t]elescope quickfix list [c]' })
