@@ -121,7 +121,6 @@ vim.keymap.set(
 
 
 
-local action_state = require('telescope.actions.state')
 
 
 telescope.setup {
@@ -139,21 +138,10 @@ telescope.setup {
         ['<C-s>'] = actions.cycle_previewers_next,
         ['<C-a>'] = actions.cycle_previewers_prev,
 
-        -- Put current selection filepath into unnamed register
-        ['<C-y>'] = function(prompt_bufnr)
-          local selection = action_state.get_selected_entry()
-          vim.fn.setreg('"', selection.path or selection.filename)
-          print("Copied to register: " .. (selection.path or selection.filename))
-        end,
       },
       n = {
         q = actions.close,
 
-        ['y'] = function(prompt_bufnr)
-          local selection = action_state.get_selected_entry()
-          vim.fn.setreg('"', selection.path or selection.filename)
-          print("Copied to register: " .. (selection.path or selection.filename))
-        end,
       },
     },
     preview = {
