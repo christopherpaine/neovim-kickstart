@@ -86,27 +86,30 @@ vim.keymap.set(
 
 
 vim.keymap.set('n', '<leader>ta', function()
-  require('telescope.builtin').find_files {
+  local telescope = require('telescope.builtin')
+  local actions = require('telescope.actions')
+  local action_state = require('telescope.actions.state')
+
+  telescope.find_files {
     hidden = true,
     no_ignore = true,
     no_ignore_parent = true,
     attach_mappings = function(prompt_bufnr, map)
-      local actions = require('telescope.actions')
-      local action_state = require('telescope.actions.state')
-
-      local copy_path = function()
+      -- copy path to default yank register
+      local function copy_path()
         local selection = action_state.get_selected_entry()
         if selection then
-          vim.fn.setreg('"', selection.path)  -- default yank register
-          print('Copied to default register: ' .. selection.path)
+          vim.fn.setreg('"', selection.path)
+          vim.notify('Copied: ' .. selection.path)
         end
         actions.close(prompt_bufnr)
       end
 
+      -- Map Ctrl-Y in insert and normal mode inside Telescope
       map('i', '<C-y>', copy_path)
       map('n', '<C-y>', copy_path)
 
-      return true
+      return true  -- keep normal <CR> behavior
     end,
   }
 end, { desc = '[t]elescope find [a]ll files' })
