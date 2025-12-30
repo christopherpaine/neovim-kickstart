@@ -1,9 +1,8 @@
 vim.loader.enable()
 
--- so that it looks in lua folder for requires
-local rtp_lua = vim.fn.stdpath('config') .. '/lua'  -- adjust to your actual path
+-- Make Lua require() look in ~/.config/nvim-dev/lua
+local rtp_lua = vim.fn.expand('~/.config/nvim-dev/lua')
 package.path = rtp_lua .. '/?.lua;' .. rtp_lua .. '/?/init.lua;' .. package.path
-
 
 
 
