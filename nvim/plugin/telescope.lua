@@ -137,11 +137,15 @@ telescope.setup {
         -- ['<esc>'] = actions.close,
         ['<C-s>'] = actions.cycle_previewers_next,
         ['<C-a>'] = actions.cycle_previewers_prev,
-
+        ["<C-t>"] = function()
+          file_paths_module.list_paths()
+        end,
       },
       n = {
         q = actions.close,
-
+        ["<C-t>"] = function()
+          file_paths_module.list_paths()
+        end,
       },
     },
     preview = {
