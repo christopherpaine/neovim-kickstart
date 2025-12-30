@@ -1,5 +1,13 @@
 vim.loader.enable()
 
+
+
+-- Prepend your lua folder to package.path
+local lua_path = vim.fn.stdpath("config") .. "/lua/?.lua"
+package.path = lua_path .. ";" .. package.path
+
+
+
 -- <leader> key. Defaults to `\`. Some people prefer space.
 -- The default leader is '\'. Some people prefer <space>. Uncomment this if you do, too.
 vim.g.mapleader = ' '
