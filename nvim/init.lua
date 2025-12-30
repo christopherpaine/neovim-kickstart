@@ -1,6 +1,6 @@
 vim.loader.enable()
 
-# so that it looks in lua folder for requires
+-- so that it looks in lua folder for requires
 local rtp_lua = vim.fn.stdpath('config') .. '/lua'  -- adjust to your actual path
 package.path = rtp_lua .. '/?.lua;' .. rtp_lua .. '/?/init.lua;' .. package.path
 
