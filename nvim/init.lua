@@ -1,6 +1,6 @@
 vim.loader.enable()
 
-
+--things are clear now
 
 
 -- <leader> key. Defaults to `\`. Some people prefer space.
