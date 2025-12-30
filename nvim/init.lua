@@ -404,6 +404,10 @@ end
 -- file_paths_module.list_paths()
 
 
+_G.file_paths_module = file_paths_module
+
+
+
 vim.keymap.set("n", "<leader>tt", function()
   file_paths_module.list_paths()
 end)
