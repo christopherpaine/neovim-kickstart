@@ -102,6 +102,8 @@ in {
   nvim-pkg = mkNeovim {
     plugins = all-plugins;
     inherit extraPackages;
+  # Add your Lua module folder here
+  extraLuaDirs = [ ./lua ];
   };
 
   # This is meant to be used within a devshell.
