@@ -281,9 +281,137 @@ vim.keymap.set(
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- Define the module in init.lua
+local file_paths_module = {}
+
+local actions = require("telescope.actions")
+local actions_state = require("telescope.actions.state")
+local entry_display = require("telescope.pickers.entry_display")
+local pickers = require("telescope.pickers")
+local finders = require("telescope.finders")
+local config = require("telescope.config").values
+local log = require("plenary.log"):new()
+log.level = "debug"
+
+-- Function to get paths
+function file_paths_module.file_paths()
+  return {
+    { type = "name", name = vim.fn.expand("%:t") },
+    { type = "path", name = vim.fn.expand("%") },
+    { type = "home", name = vim.fn.expand("%:~") },
+    { type = "root", name = vim.fn.expand("%:p:h") },
+  }
+end
+
+-- Create a displayer for Telescope
+local displayer = entry_display.create({
+  separator = " ",
+  items = {
+    { width = 4 },
+    { remaining = true },
+  },
+})
+
+-- Main function to list paths in Telescope
+function file_paths_module.list_paths(opts)
+  pickers.new(opts, {
+    finder = finders.new_table({
+      results = file_paths_module.file_paths(),
+      entry_maker = function(entry)
+        return {
+          value = entry,
+          display = function()
+            return displayer({
+              { entry.type, "TelescopeResultsNumber" },
+              entry.name,
+            })
+          end,
+          ordinal = entry.name,
+        }
+      end,
+    }),
+    layout_strategy = "cursor",
+    layout_config = {
+      height = 9,
+      width = function(res)
+        local max_width = 0
+        for _, v in ipairs(res.finder.results) do
+          if #v.value.name > max_width then max_width = #v.value.name end
+        end
+        return max_width + 14
+      end,
+    },
+    sorter = config.generic_sorter(opts),
+    prompt_title = "File Paths",
+    attach_mappings = function(prompt_bufnr, map)
+      local function handle_selection(selection)
+        actions.close(prompt_bufnr)
+        vim.fn.setreg('"', selection.value.name)
+      end
+
+      actions.select_default:replace(function()
+        handle_selection(actions_state.get_selected_entry())
+      end)
+
+      map("i", "y", function()
+        local selection = actions_state.get_selected_entry()
+        actions.close(prompt_bufnr)
+        vim.fn.setreg("+", selection.value.name)
+      end)
+
+      map("i", "<c-p>", function()
+        local selection = actions_state.get_selected_entry()
+        actions.close(prompt_bufnr)
+        vim.api.nvim_paste(selection.value.name, true, -1)
+      end)
+
+      map("i", "P", function()
+        local selection = actions_state.get_selected_entry()
+        actions.close(prompt_bufnr)
+        vim.api.nvim_put({ selection.value.name }, "l", false, false)
+      end)
+
+      map("i", "p", function()
+        local selection = actions_state.get_selected_entry()
+        actions.close(prompt_bufnr)
+        vim.api.nvim_put({ selection.value.name }, "l", true, false)
+      end)
+
+      return true
+    end,
+  }):find()
+end
+
+-- Use it immediately or later
+-- file_paths_module.list_paths()
+
+
 vim.keymap.set("n", "<leader>tt", function()
-  require("telescope_filepaths").list_paths()
+  file_paths_module.list_paths()
 end)
+
+
 
 
 
