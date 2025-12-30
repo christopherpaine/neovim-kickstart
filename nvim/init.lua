@@ -275,6 +275,9 @@ vim.keymap.set(
 
 
 
+vim.keymap.set("n", "<leader>tt", function()
+  require("telescope_filepaths").list_paths()
+end)
 
 
 
