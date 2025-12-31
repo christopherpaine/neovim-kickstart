@@ -15,6 +15,11 @@ vim.opt.scrolloff = 999
 
 
 
+-- so that cursor stays in the middle of the screen
+vim.opt.scrolloff = 999
+
+
+
 
 
 require("bufferline").setup{}
@@ -160,6 +165,32 @@ vim.cmd([[
 
 
 
+vim.api.nvim_create_user_command('Sgp', function()
+  -- Get the visual selection
+  local _, start_line, start_col, _ = unpack(vim.fn.getpos("'<"))
+  local _, end_line, end_col, _ = unpack(vim.fn.getpos("'>"))
+  local lines = vim.api.nvim_buf_get_lines(0, start_line-1, end_line, false)
+  
+  -- If it's a single line, slice it
+  if #lines == 1 then
+    lines[1] = string.sub(lines[1], start_col, end_col)
+  else
+    lines[1] = string.sub(lines[1], start_col)
+    lines[#lines] = string.sub(lines[#lines], 1, end_col)
+  end
+
+  local text = table.concat(lines, "\n")
+  -- Execute shell command with selection
+  vim.cmd('read !sgpt ' .. vim.fn.shellescape(text))
+end, { range = true })
+
+
+
+
+
+
+
+--markdown -  insert a markdown link
  vim.keymap.set('n', '<leader>ml', 'i[<C-r><C-w>](<Esc>pa)<Esc>', {noremap = true, silent = true })
 
 
