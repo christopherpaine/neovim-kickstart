@@ -168,9 +168,12 @@ vim.cmd([[
   command! Sg execute 'read !sgpt ' . shellescape(join(getline("'<","'>"), "\n"))
 ]])
 
--- Visual mode mapping for 'ss'
-vim.api.nvim_set_keymap('v', 'ss', [[:<C-U>execute 'read !sgpt ' . shellescape(join(getline("'<","'>"), "\n"))<CR>]], { noremap = true, silent = true, desc = "SGPT query highlighted text"})
 
+vim.keymap.set('v', 'ss', function()
+  local lines = vim.fn.getline("'<", "'>")
+  local text = table.concat(lines, "\n")
+  vim.cmd('read !sgpt ' .. vim.fn.shellescape(text))
+end, { noremap = true, silent = true })
 
 
 
