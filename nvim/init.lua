@@ -159,30 +159,14 @@ vim.g.user_emmet_leader_key = '<C-y>'
 
 --using sgpt
 
+--vim.cmd([[
+--  command! -nargs=* Sg execute 'read ! sgpt ' . <q-args>
+--]])
+--
+
 vim.cmd([[
-  command! -nargs=* Sg execute 'read ! sgpt ' . <q-args>
+  command! Sg execute 'read !sgpt ' . shellescape(join(getline("'<","'>"), "\n"))
 ]])
-
-
-
-vim.api.nvim_create_user_command('Sgp', function()
-  -- Get the visual selection
-  local _, start_line, start_col, _ = unpack(vim.fn.getpos("'<"))
-  local _, end_line, end_col, _ = unpack(vim.fn.getpos("'>"))
-  local lines = vim.api.nvim_buf_get_lines(0, start_line-1, end_line, false)
-  
-  -- If it's a single line, slice it
-  if #lines == 1 then
-    lines[1] = string.sub(lines[1], start_col, end_col)
-  else
-    lines[1] = string.sub(lines[1], start_col)
-    lines[#lines] = string.sub(lines[#lines], 1, end_col)
-  end
-
-  local text = table.concat(lines, "\n")
-  -- Execute shell command with selection
-  vim.cmd('read !sgpt ' .. vim.fn.shellescape(text))
-end, { range = true })
 
 
 
