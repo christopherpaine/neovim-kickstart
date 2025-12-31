@@ -189,6 +189,20 @@ end
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 _G.Street = function()
 
 --  • local url: Declares a local variable named url.                              
@@ -273,7 +287,7 @@ vim.keymap.set(
   'n',
   '<leader>mm',
   function() Street() end,
-  { noremap = true, silent = true }
+  { noremap = true, silent = true, desc = 'Street map iframe' }
 )
 
 

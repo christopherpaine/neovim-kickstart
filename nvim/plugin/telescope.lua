@@ -135,17 +135,17 @@ telescope.setup {
         ['<C-q>'] = actions.send_to_qflist,
         ['<C-l>'] = actions.send_to_loclist,
         -- ['<esc>'] = actions.close,
---        ['<C-s>'] = actions.cycle_previewers_next,
+        ['<C-s>'] = actions.cycle_previewers_next,
         ['<C-a>'] = actions.cycle_previewers_prev,
-        ["<C-s>"] = function()
-          file_paths_module.list_paths()
-        end,
+--        ["<C-s>"] = function()
+--          file_paths_module.list_paths()
+--        end,
       },
       n = {
         q = actions.close,
-        ["<C-t>"] = function()
-          file_paths_module.list_paths()
-        end,
+--        ["<C-t>"] = function()
+--          file_paths_module.list_paths()
+--        end,
       },
     },
     preview = {
