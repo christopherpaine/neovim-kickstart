@@ -188,6 +188,13 @@ end
 
 
 
+vim.keymap.set(
+  'n',
+  '<leader>mf',
+  function() InsertFrontMatter() end,
+  { noremap = true, silent = true, desc = 'Insert front matter' }
+)
+
 
 
 
