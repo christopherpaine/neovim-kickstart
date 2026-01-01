@@ -185,6 +185,13 @@ end, { noremap = true, silent = true })
 
 
 
+vim.keymap.set('n', '<leader>mt', function()
+  vim.api.nvim_put({
+    '| Column 1 | Column 2 |',
+    '|----------|----------|',
+    '|          |          |',
+  }, 'l', true, true)
+end, { noremap = true, silent = true })
 
 
 
