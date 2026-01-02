@@ -9,6 +9,8 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 
+-- greatest remap ever
+-- xnoremap("<leader>p", "\"_dP")
 
 vim.opt.ignorecase = true
 vim.opt.scrolloff = 999
@@ -191,7 +193,7 @@ vim.keymap.set('n', '<leader>mt', function()
     '|----------|----------|',
     '|          |          |',
   }, 'l', true, true)
-end, { noremap = true, silent = true })
+end, { noremap = true, silent = true, desc = "2 column markdown table"})
 
 
 
@@ -459,6 +461,48 @@ _G.file_paths_module = file_paths_module
 vim.keymap.set("n", "<leader>tt", function()
   file_paths_module.list_paths()
 end)
+
+
+
+
+
+
+
+-- Adds a new row at the end of CSV with auto-incremented fig_id
+function AddNewFigRow()
+  local buf = vim.api.nvim_get_current_buf()
+  local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
+  
+  -- Find the last fig_id
+  local last_id = "F000"
+  for i = #lines, 1, -1 do
+    local id = lines[i]:match("^(F%d+)")
+    if id then
+      last_id = id
+      break
+    end
+  end
+
+  -- Increment numeric part
+  local num = tonumber(last_id:sub(2)) + 1
+  local new_id = string.format("F%03d", num)
+
+  -- Append new row with empty fields
+  vim.api.nvim_buf_set_lines(buf, -1, -1, false, {new_id .. ",,"})
+
+  -- Move cursor to new line after ID
+  local new_line = #lines
+  vim.api.nvim_win_set_cursor(0, {new_line + 1, #new_id + 1})
+end
+
+-- Optional keymap, e.g., <Leader>n
+vim.keymap.set('n', '<Leader>mr', AddNewFigRow, {desc = "Add new fig_id row"})
+
+
+
+
+
+
 
 
 
