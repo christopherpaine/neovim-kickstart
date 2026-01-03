@@ -500,9 +500,38 @@ function AddNewFigRow()
 end
 
 -- Optional keymap, e.g., <Leader>n
-vim.keymap.set('n', '<Leader>mr', AddNewFigRow, {desc = "Add new fig_id row"})
+vim.keymap.set('n', '<Leader>mrf', AddNewFigRow, {desc = "Add new fig_id row"})
 
 
+-- Adds a new row at the end of CSV with auto-incremented fig_id
+function AddNewbaseRow()
+  local buf = vim.api.nvim_get_current_buf()
+  local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
+  
+  -- Find the last fig_id
+  local last_id = "B000"
+  for i = #lines, 1, -1 do
+    local id = lines[i]:match("^(B%d+)")
+    if id then
+      last_id = id
+      break
+    end
+  end
+
+  -- Increment numeric part
+  local num = tonumber(last_id:sub(2)) + 1
+  local new_id = string.format("B%03d", num)
+
+  -- Append new row with empty fields
+  vim.api.nvim_buf_set_lines(buf, -1, -1, false, {new_id .. ","})
+
+  -- Move cursor to new line after ID
+  local new_line = #lines
+  vim.api.nvim_win_set_cursor(0, {new_line + 1, #new_id + 1})
+end
+
+-- Optional keymap, e.g., <Leader>n
+vim.keymap.set('n', '<Leader>mrb', AddNewbaseRow, {desc = "Add new base_id row"})
 
 function add_next_fig_id()
   local line = vim.api.nvim_get_current_line()
