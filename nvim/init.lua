@@ -921,3 +921,37 @@ local telescope = require('telescope.builtin')
 telescope.find_files({ default_text = clipboard_text })
 end, { desc = '[t]elescope live grep with clipboard prefill for personal website and others' })
 
+
+
+
+function _G.newfilewithfrontmatter()
+
+-- Save current buffer
+local cur_buf = vim.api.nvim_get_current_buf()
+  visual_append_to_filename()
+  InsertFrontMatter("none") 
+  CopyFilenameNoExtToUnnamed()
+-- Return to original buffer
+vim.api.nvim_set_current_buf(cur_buf)
+
+-- in Lua
+vim.cmd('normal! viw')
+
+
+end
+
+
+vim.keymap.set("v", "<leader>mm",newfilewithfrontmatter , { silent = true, desc = "chris test" })
+
+
+
+
+
+
+
+
+
+
+
+
+
