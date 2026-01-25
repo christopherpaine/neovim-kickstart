@@ -191,7 +191,7 @@ end, { noremap = true, silent = true })
 
 
 
-vim.keymap.set('n', '<leader>mt', function()
+vim.keymap.set('n', '<leader>mt2', function()
   vim.api.nvim_put({
     '| Column 1 | Column 2 |',
     '|----------|----------|',
@@ -223,7 +223,7 @@ end
 
 vim.keymap.set(
   'n',
-  '<leader>mf',
+  '<leader>mfm',
   function() InsertFrontMatter() end,
   { noremap = true, silent = true, desc = 'Insert front matter' }
 )
@@ -233,6 +233,13 @@ vim.keymap.set(
 
 
 
+
+vim.keymap.set(
+  'n',
+  '<leader>mfp',
+  function() InsertFrontMatter("none") end,
+  { noremap = true, silent = true, desc = 'Insert front matter' }
+)
 
 
 
@@ -463,8 +470,7 @@ _G.file_paths_module = file_paths_module
 
 
 vim.keymap.set("n", "<leader>tt", function()
-  file_paths_module.list_paths()
-end)
+  file_paths_module.list_paths() end,{desc = "get file paths etc"})
 
 
 
@@ -595,9 +601,309 @@ function add_next_base_id()
 end
 
 
-vim.keymap.set('n', '<Leader>mab', add_next_base_id, {desc = "Add next fig_id within the brackets"})
+vim.keymap.set('n', '<Leader>mab', add_next_base_id, {desc = "Add next base_id within the brackets"})
 
 
+local function get_visual_selection()
+  local _, ls, cs = unpack(vim.fn.getpos("'<"))
+  local _, le, ce = unpack(vim.fn.getpos("'>"))
+
+  local lines = vim.api.nvim_buf_get_lines(0, ls - 1, le, false)
+  if #lines == 0 then return "" end
+
+  lines[#lines] = string.sub(lines[#lines], 1, ce)
+  lines[1] = string.sub(lines[1], cs)
+
+  return table.concat(lines, "")
+end
+
+
+
+
+local function get_visual_selection2()
+-- Yank the current visual selection into register z and return it
+vim.cmd('normal! "zy')   -- reselect visual area and yank into 'z'
+local selection = vim.fn.getreg('z')
+vim.notify(selection)
+return selection
+end
+
+
+
+
+
+
+
+
+
+
+
+function InsertFigurativeCodesFromVisual()
+  local name = get_visual_selection2()
+  if name == "" then return end
+
+  local lines = {
+    "  - name:  " .. name,
+    "    query: |",
+    "      SELECT interpretation as term, image",
+    "      FROM figurative_codes",
+    "      WHERE fig_id in ('F058')",
+    "    output_file: " .. name .. ".html",
+    "    caption: \"relevant figurative codes\"",
+  }
+
+  local row = vim.api.nvim_win_get_cursor(0)[1]
+  vim.api.nvim_buf_set_lines(0, row, row, false, lines)
+end
+
+
+vim.keymap.set("v", "<leader>msf", InsertFigurativeCodesFromVisual, {
+  desc = "SQL table for figurative codes",
+})
+
+
+
+
+function InsertBaseImagesFromVisual()
+  local name = get_visual_selection()
+  if name == "" then return end
+  local lines = {
+    "  - name:  " .. name,
+    "    query: |",
+    "      SELECT image",
+    "      FROM base_images",
+    "      WHERE base_id in ('B058')",
+    "    output_file: " .. name .. ".html",
+    "    caption: \"relevant base images\"",
+  }
+
+  local row = vim.api.nvim_win_get_cursor(0)[1]
+  vim.api.nvim_buf_set_lines(0, row, row, false, lines)
+end
+
+
+vim.keymap.set("v", "<leader>msbo", InsertBaseImagesFromVisual, {
+  desc = "SQL table for base images",
+})
+
+
+
+
+
+
+function InsertBaseImagesandFigCodesFromVisual()
+  local name = get_visual_selection()
+  if name == "" then return end
+  local lines = {
+    "  - name:  " .. name,
+    "    query: |",
+    "      WITH basenhooks AS (",
+    "      SELECT image, key_2, hook_number, base_id",
+    "      FROM base_images",
+    "      LEFT JOIN hooks",
+    "      ON base_id = key_1",
+    "      WHERE base_id in ('B005','B006','B007','B008','B009','B010','B011','B012')",
+    "      )",
+    "      SELECT basenhooks.image, interpretation",
+    "      FROM basenhooks",
+    "      LEFT JOIN figurative_codes",
+    "      ON key_2 = fig_id",
+    "      ORDER BY base_id, hook_number",
+    "    output_file: " .. name .. ".html",
+    "    caption: \"base image with fig codes\"",
+  }
+
+  local row = vim.api.nvim_win_get_cursor(0)[1]
+  vim.api.nvim_buf_set_lines(0, row, row, false, lines)
+end
+
+vim.keymap.set("v", "<leader>msbf", InsertBaseImagesandFigCodesFromVisual, {
+  desc = "SQL table for base images with figurative codes",
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function InsertIncludeFromRegister()
+  local reg = vim.fn.getreg('"')
+  local line = "{% include generated/" .. reg .. ".html%}"
+  vim.api.nvim_put({ line }, 'c', true, true)
+end
+
+
+vim.keymap.set('n', '<leader>mts', InsertIncludeFromRegister, { noremap = true, silent = true, desc = "inclue the sql table" })
+
+
+
+
+function _G.visual_append_to_filename()
+--  -- get visual selection
+--  local _, ls, cs = unpack(vim.fn.getpos("'<"))
+--  local _, le, ce = unpack(vim.fn.getpos("'>"))
+--  local lines = vim.fn.getline(ls, le)
+--
+--  if #lines == 0 then return end
+--
+--  lines[#lines] = string.sub(lines[#lines], 1, ce)
+--  lines[1] = string.sub(lines[1], cs)
+--  local selection = table.concat(lines, " ")
+
+
+  local selection = get_visual_selection2()
+
+
+  -- sanitize selection
+  selection = selection:gsub("%s+", "-")
+
+
+
+
+
+
+  -- current file info
+  local fullpath = vim.fn.expand("%:p")
+  local dir = vim.fn.fnamemodify(fullpath, ":h")
+  local base = vim.fn.expand("%:t:r")
+  local ext = vim.fn.expand("%:e")
+
+  local newname = base .. "-" .. selection
+  if ext ~= "" then
+    newname = newname .. "." .. ext
+  end
+
+  local newpath = dir .. "/" .. newname
+
+  -- open new file
+  vim.cmd("edit " .. vim.fn.fnameescape(newpath))
+end
+
+
+vim.keymap.set("v", "<leader>mn", visual_append_to_filename, { silent = true, desc = "new file" })
+
+
+
+function CopyFilenameNoExtToUnnamed()
+  local name = vim.fn.expand("%:t:r")
+  vim.fn.setreg('"', name)
+end
+
+
+vim.keymap.set("n", "<leader>mfn", CopyFilenameNoExtToUnnamed, { desc = "Copy filename without extension" })
+
+
+
+-- put this in lua/lookup_csv.lua or init.lua
+
+local csv_path = vim.fn.expand("~/christopherpaine_org/_data/figurative_codes.csv")
+
+
+
+
+
+function _G.lookup_csv_by_second_field()
+  local key = get_visual_selection2()
+  if key == "" then return end
+
+  for line in io.lines(csv_path) do
+    local f1, f2 = line:match("^%s*([^,]+),%s*([^,]+)")
+    if f2 and vim.trim(f2) == key then
+-- this bit puts what was found into register
+      vim.fn.setreg('"', vim.trim(f1))
+      return
+    end
+  end
+
+  vim.notify("No match found for: " .. key, vim.log.levels.WARN)
+end
+
+vim.keymap.set("v", "<leader>mff",lookup_csv_by_second_field , { silent = true, desc = "get fig code description" })
+
+
+
+
+function _G.lookup_csv_by_second_field_with_loop()
+  local selection = get_visual_selection2()
+vim.fn.setreg('"', "")
+for key in selection:gmatch("%S+") do
+  for line in io.lines(csv_path) do
+    local f1, f2 = line:match("^%s*([^,]+),%s*([^,]+)")
+    if f2 and vim.trim(f2) == key then
+      local cur = vim.fn.getreg('"')
+     vim.fn.setreg('"', cur .. "'" .. vim.trim(f1) .. "',")
+      -- vim.fn.setreg('"', cur .. vim.trim(f1) )
+      break
+    end
+    end
+    end
+    end
+
+vim.keymap.set("v", "<leader>mfl",lookup_csv_by_second_field_with_loop , { silent = true, desc = "get fig code description for multiple words" })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function _G.christest()
+-- Yank the current visual selection into register z and return it
+vim.cmd('normal! "zy')   -- reselect visual area and yank into 'z'
+local selection = vim.fn.getreg('z')
+vim.notify(selection)
+end
+
+
+vim.keymap.set("v", "<leader>mc",christest , { silent = true, desc = "chris test" })
 
 
 
