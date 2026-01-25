@@ -908,3 +908,16 @@ vim.keymap.set("v", "<leader>mc",christest , { silent = true, desc = "chris test
 
 
 
+
+
+
+
+vim.keymap.set('n', '<leader>te', function()
+-- Get clipboard content into a Lua variable
+local clipboard_text = vim.fn.getreg('+')  -- '+' is the system clipboard
+clipboard_text = clipboard_text:gsub("http://127%.0%.0%.1:4000/", "")
+local telescope = require('telescope.builtin')
+--local input = vim.fn.input("Start typing file: ", "") -- prefill text
+telescope.find_files({ default_text = clipboard_text })
+end, { desc = '[t]elescope live grep with clipboard prefill for personal website and others' })
+
