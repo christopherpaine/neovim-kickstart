@@ -127,8 +127,6 @@ vim.g.sqlite_clib_path = require('luv').os_getenv('LIBSQLITE')
 
 
 
--- some personal bindings
-vim.keymap.set('n', '<leader>q', ':bd<CR>', { desc = 'Close Buffer' })
 
 --save file
 vim.keymap.set('n', '<A-w>', ':w<CR>', { noremap = true, silent = true })
