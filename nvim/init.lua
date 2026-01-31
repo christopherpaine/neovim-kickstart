@@ -988,7 +988,6 @@ end
 
 
 
-vim.keymap.set("n", "<leader>bv", prompt_and_insert, { desc = "Prompt and insert text" })
 
 
 
@@ -1010,6 +1009,7 @@ end)
 end
 
 
+vim.keymap.set("n", "<leader>bv", prompt_and_insert, { desc = "Prompt and insert text" })
 
 
 -- Keybind (change <leader>i if you want)
@@ -1036,7 +1036,7 @@ vim.keymap.set("n", "<leader>mi", OpenInitLua, { desc = "init lua" })
 
 
 
-require("user.test")
+require("test")
 
 
 
