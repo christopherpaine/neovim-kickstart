@@ -186,7 +186,23 @@ end, { noremap = true, silent = true })
 
 
 --markdown -  insert a markdown link
- vim.keymap.set('n', '<leader>ml', 'i[<C-r><C-w>](<Esc>pa)<Esc>', {noremap = true, silent = true })
+ vim.keymap.set('v', '<leader>ml', 'i[<C-r><C-w>](<Esc>pa)<Esc>', {noremap = true, silent = true, desc = 'markdown link' })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -916,6 +932,7 @@ vim.keymap.set('n', '<leader>te', function()
 -- Get clipboard content into a Lua variable
 local clipboard_text = vim.fn.getreg('+')  -- '+' is the system clipboard
 clipboard_text = clipboard_text:gsub("http://127%.0%.0%.1:4000/", "")
+clipboard_text = clipboard_text:gsub("%.html$", "")
 local telescope = require('telescope.builtin')
 --local input = vim.fn.input("Start typing file: ", "") -- prefill text
 telescope.find_files({ default_text = clipboard_text })
@@ -941,7 +958,90 @@ vim.cmd('normal! viw')
 end
 
 
-vim.keymap.set("v", "<leader>mm",newfilewithfrontmatter , { silent = true, desc = "chris test" })
+vim.keymap.set("v", "<leader>mm",newfilewithfrontmatter , { silent = true, desc = "new file with front matter" })
+
+
+
+
+function _G.choose_item(on_choice)
+  local action_state = require('telescope.actions.state')
+  local conf = require('telescope.config').values
+
+  local items = { "reconcile_reserve", "Item 2", "test1" }
+
+  pickers.new({}, {
+    prompt_title = "Choose an Item",
+    finder = finders.new_table {
+      results = items,
+    },
+    sorter = conf.generic_sorter({}),
+    attach_mappings = function(prompt_bufnr)
+      actions.select_default:replace(function()
+        actions.close(prompt_bufnr)
+        local selection = action_state.get_selected_entry()
+        on_choice(selection[1])  -- ← hand it back
+      end)
+      return true
+    end,
+  }):find()
+end
+
+
+
+vim.keymap.set("n", "<leader>bv", prompt_and_insert, { desc = "Prompt and insert text" })
+
+
+
+
+-- Function to prompt and insert text
+function _G.prompt_and_insert()
+  choose_item(function(chatitem)
+  vim.ui.input({ prompt = "Insert text: " }, function(input)
+  local cmd2 = "sgpt --no-md --chat " .. chatitem .. " " .. vim.fn.shellescape(input)
+  local output = vim.fn.system(cmd2)
+  local lines = vim.split(output, "\n", { plain = true })
+
+
+    if output then
+      vim.api.nvim_put(lines, "l", true, true)
+    end
+  end)
+end)
+end
+
+
+
+
+-- Keybind (change <leader>i if you want)
+vim.keymap.set("n", "<leader>bb", prompt_and_insert, { desc = "Prompt and insert text" })
+
+
+
+
+
+-- nevim lua function that automatically opens init.lua in new buffer
+
+-- Function to open init.lua in a new buffer
+function OpenInitLua()
+  local init_path = '/home/chris-jakoolit/neovim-kickstart/nvim/init.lua'
+  vim.cmd('edit ' .. init_path)
+end
+
+
+-- Keybind (change <leader>i if you want)
+vim.keymap.set("n", "<leader>mi", OpenInitLua, { desc = "init lua" })
+
+
+
+
+
+
+require("user.test")
+
+
+
+
+
 
 
 

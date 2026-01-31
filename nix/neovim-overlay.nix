@@ -33,6 +33,7 @@ with final.pkgs.lib; let
 #    emmet-vim   tempoaray hash out here chris
     vim-visual-multi
     bufferline-nvim
+    harpoon
     undotree
 #   auto-session
     nvim-notify
