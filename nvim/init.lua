@@ -1036,7 +1036,7 @@ vim.keymap.set("n", "<leader>mi", OpenInitLua, { desc = "init lua" })
 
 
 
-require("test")
+require("user.test")
 
 
 
