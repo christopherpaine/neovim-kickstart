@@ -898,6 +898,11 @@ require("user.key-files")
 
 
 
+vim.keymap.set("n", "<leader><CR>", function()
+  vim.cmd("enew")        -- new empty buffer
+  vim.cmd("terminal")    -- start terminal in it
+  vim.cmd("startinsert") -- jump straight in
+end, { desc = "Terminal in new buffer" })
 
 
 
