@@ -193,45 +193,6 @@ end, { noremap = true, silent = true, desc = "2 column markdown table"})
 
 
 
-_G.InsertFrontMatter = function(parent)
-    parent = parent or "Exploration"  -- default value
-    local filename = vim.fn.expand('%:t:r')
-    filename = filename:gsub("-", " ")
-    filename = filename:gsub("(%w+)", function(w) return w:sub(1,1):upper() .. w:sub(2) end)
-
-    local lines = {
-        '---',
-        'layout: default',
-        'title: ' .. filename,
-        'parent: ' .. parent,
-        '---',
-        ''
-    }
-
-    vim.api.nvim_buf_set_lines(0, 0, 0, false, lines)
-end
-
-
-
-vim.keymap.set(
-  'n',
-  '<leader>mfm',
-  function() InsertFrontMatter() end,
-  { noremap = true, silent = true, desc = 'Insert front matter' }
-)
-
-
-
-
-
-
-
-vim.keymap.set(
-  'n',
-  '<leader>mfp',
-  function() InsertFrontMatter("none") end,
-  { noremap = true, silent = true, desc = 'Insert front matter' }
-)
 
 
 
@@ -801,7 +762,7 @@ function CopyFilenameNoExtToUnnamed()
 end
 
 
-vim.keymap.set("n", "<leader>mfn", CopyFilenameNoExtToUnnamed, { desc = "Copy filename without extension" })
+vim.keymap.set("n", "<leader>mn", CopyFilenameNoExtToUnnamed, { desc = "Copy filename without extension" })
 
 
 

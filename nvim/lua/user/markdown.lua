@@ -2,7 +2,60 @@ require("which-key").add({
   { "<leader>m", group = "chris notes" },
 })
 
+
+require("which-key").add({
+  { "<leader>mf", group = "frontmatter" },
+})
+
+
+
+
+
+
+
+
 --markdown -  insert a markdown link
  vim.keymap.set('v', '<leader>ml', 'i[<C-r><C-w>](<Esc>pa)<Esc>', {noremap = true, silent = true, desc = 'markdown link' })
 
 
+
+
+
+
+_G.InsertFrontMatter = function(parent)
+    parent = parent or "Exploration"  -- default value
+    local filename = vim.fn.expand('%:t:r')
+    filename = filename:gsub("-", " ")
+    filename = filename:gsub("(%w+)", function(w) return w:sub(1,1):upper() .. w:sub(2) end)
+
+    local lines = {
+        '---',
+        'layout: default',
+        'title: ' .. filename,
+        'parent: ' .. parent,
+        '---',
+        ''
+    }
+
+    vim.api.nvim_buf_set_lines(0, 0, 0, false, lines)
+end
+
+vim.keymap.set(
+  'n',
+  '<leader>mfe',
+  function() InsertFrontMatter() end,
+  { noremap = true, silent = true, desc = 'exploration' }
+)
+
+
+
+
+
+
+
+vim.keymap.set(
+  'n',
+  '<leader>mfn',
+  function() InsertFrontMatter("none") end,
+  { noremap = true, silent = true, desc = 'none' }
+)
