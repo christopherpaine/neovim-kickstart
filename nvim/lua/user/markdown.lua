@@ -7,8 +7,8 @@ require("which-key").add({
 })
 --markdown -  insert a markdown link
 function CreateMarkdownLink()
-vim.cmd("'<,'>yank z")
-
+--vim.cmd("'<,'>yank z")
+vim.cmd('normal! "zy')
 end
 
 vim.keymap.set('v', '<leader>ml', function() CreateMarkdownLink() end, { noremap = true, silent = true })
