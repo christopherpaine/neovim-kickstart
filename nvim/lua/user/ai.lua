@@ -2,12 +2,20 @@ local pickers = require("telescope.pickers")
 local finders = require("telescope.finders")
 local actions = require("telescope.actions")
 local action_state = require('telescope.actions.state')
-local items = { "reconcile_reserve", "Item 2", "test1" }
 local conf = require('telescope.config').values
 
 
 -- I am storing stuff in ~/.chats/
+local items = {}
 
+local file = io.open("/home/chris-jakoolit/.chats/chats.csv", "r")
+if file then
+    local line = file:read("*l")
+    for value in string.gmatch(line, "([^,]+)") do
+        table.insert(items, value)
+    end
+    file:close()
+end
 
 
 

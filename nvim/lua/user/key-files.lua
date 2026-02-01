@@ -1,33 +1,6 @@
--- local wk = require("which-key")
--- 
--- wk.register({
---   i = {
---     name = "files",
---   },
--- }, { prefix = "<leader>" })
--- 
-
-
 require("which-key").add({
   { "<leader>i", group = "files" },
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 -- Function to open a file in a new buffer
