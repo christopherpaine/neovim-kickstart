@@ -24,3 +24,9 @@ end, { desc = "ai chats" })
 vim.keymap.set("n", "<leader>in", function()
   OpenFile('/home/chris-jakoolit/christopherpaine_org/index.markdown')
 end, { desc = "chris notes" })
+
+
+
+vim.keymap.set("n", "<leader>if", function()
+  OpenFile('/home/chris-jakoolit/NixOS-Hyprland/flake.nix')
+end, { desc = "flake.nix" })
