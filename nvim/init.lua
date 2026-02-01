@@ -159,30 +159,10 @@ vim.keymap.set('n', '<S-Tab>', '<cmd>BufferLineCyclePrev<CR>', { desc = "Previou
 -- Optional: set the leader key for emmet (default is <C-y>)
 vim.g.user_emmet_leader_key = '<C-1>'
 
---using sgpt
-
---vim.cmd([[
---  command! -nargs=* Sg execute 'read ! sgpt ' . <q-args>
---]])
---
-
-vim.cmd([[
-  command! Sg execute 'read !sgpt ' . shellescape(join(getline("'<","'>"), "\n"))
-]])
-
-
-vim.keymap.set('v', 'ss', function()
-  local lines = vim.fn.getline("'<", "'>")
-  local text = table.concat(lines, "\n")
-  vim.cmd('read !sgpt ' .. vim.fn.shellescape(text))
-end, { noremap = true, silent = true })
 
 
 
 
-
---markdown -  insert a markdown link
- vim.keymap.set('v', '<leader>ml', 'i[<C-r><C-w>](<Esc>pa)<Esc>', {noremap = true, silent = true, desc = 'markdown link' })
 
 
 
@@ -878,52 +858,6 @@ vim.keymap.set("v", "<leader>mfl",lookup_csv_by_second_field_with_loop , { silen
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function _G.christest()
--- Yank the current visual selection into register z and return it
-vim.cmd('normal! "zy')   -- reselect visual area and yank into 'z'
-local selection = vim.fn.getreg('z')
-vim.notify(selection)
-end
-
-
-vim.keymap.set("v", "<leader>mc",christest , { silent = true, desc = "chris test" })
-
-
-
-
-
-
-
-
 vim.keymap.set('n', '<leader>te', function()
 -- Get clipboard content into a Lua variable
 local clipboard_text = vim.fn.getreg('+')  -- '+' is the system clipboard
@@ -957,6 +891,8 @@ end
 vim.keymap.set("v", "<leader>mm",newfilewithfrontmatter , { silent = true, desc = "new file with front matter" })
 
 
+require("user.closing")
+require("user.markdown")
 require("user.test")
 require("user.ai")
 require("user.key-files")
