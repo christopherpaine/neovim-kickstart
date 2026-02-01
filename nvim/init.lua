@@ -893,7 +893,6 @@ vim.keymap.set("v", "<leader>mm",newfilewithfrontmatter , { silent = true, desc 
 
 require("user.closing")
 require("user.markdown")
-require("user.test")
 require("user.ai")
 require("user.key-files")
 
