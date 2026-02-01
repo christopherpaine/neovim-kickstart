@@ -22,3 +22,13 @@ end
 vim.api.nvim_set_keymap('n', '<leader>qa', ':lua CloseOtherBuffers()<CR>', { noremap = true, silent = true, desc = 'close all other buffers' })
 
 
+
+function QuitNeovim()
+  vim.cmd('qa')
+end
+
+-- Optionally, map this function to a key combination, for example:
+vim.api.nvim_set_keymap('n', '<leader>q4', ':lua QuitNeovim()<CR>', { noremap = true, silent = true })
+
+
+
