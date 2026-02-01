@@ -3,28 +3,23 @@ local finders = require("telescope.finders")
 local actions = require("telescope.actions")
 local action_state = require('telescope.actions.state')
 local conf = require('telescope.config').values
-
-
--- I am storing stuff in ~/.chats/
 local items = {}
 
-local file = io.open("/home/chris-jakoolit/.chats/chats.csv", "r")
-if file then
-    local line = file:read("*l")
-    for value in string.gmatch(line, "([^,]+)") do
-        table.insert(items, value)
-    end
-    file:close()
+-- I am storing stuff in ~/.chats/
+function _G.refresh_chat_list()
+  local file = io.open("/home/chris-jakoolit/.chats/chats.csv", "r")
+  if file then
+      local line = file:read("*l")
+      for value in string.gmatch(line, "([^,]+)") do
+          table.insert(items, value)
+      end
+      file:close()
+  end
 end
 
 
-
-
-
-
-
-
 function _G.choose_item(on_choice)
+  refresh_chat_list()
   pickers.new({}, {
     prompt_title = "Choose an Item",
     finder = finders.new_table {
@@ -41,6 +36,22 @@ function _G.choose_item(on_choice)
     end,
   }):find()
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 -- Function to prompt and insert text
 function _G.prompt_and_insert()
