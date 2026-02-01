@@ -157,7 +157,7 @@ vim.keymap.set('n', '<S-Tab>', '<cmd>BufferLineCyclePrev<CR>', { desc = "Previou
 
 
 -- Optional: set the leader key for emmet (default is <C-y>)
-vim.g.user_emmet_leader_key = '<C-y>'
+vim.g.user_emmet_leader_key = '<C-1>'
 
 --using sgpt
 
