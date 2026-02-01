@@ -10,8 +10,6 @@ vim.g.maplocalleader = ' '
 
 
 -- greatest remap ever
--- xnoremap("<leader>p", "\"_dP")
-
  vim.keymap.set('x', '<leader>p', '"_dP', { noremap = true, silent = true })
 
 
