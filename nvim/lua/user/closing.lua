@@ -32,3 +32,10 @@ vim.api.nvim_set_keymap('n', '<leader>q4', ':lua QuitNeovim()<CR>', { noremap = 
 
 
 
+function ForceDeleteBuffer()
+  vim.cmd('bd!')
+end
+
+-- Optionally, map this function to a key combination, for example:
+vim.api.nvim_set_keymap('n', '<leader>qd', ':lua ForceDeleteBuffer()<CR>', { noremap = true, silent = true, desc = 'run :bd!' })
+
