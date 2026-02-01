@@ -7,22 +7,10 @@ require("which-key").add({
 })
 --markdown -  insert a markdown link
 function CreateMarkdownLink()
-  -- Get the selected text in visual mode
-  local start_pos = vim.fn.getpos("'<")
-  local end_pos = vim.fn.getpos("'>")
-  local lines = vim.fn.getline(start_pos[2], end_pos[2])
-  lines[1] = string.sub(lines[1], start_pos[3])
-  lines[#lines] = string.sub(lines[#lines], 1, end_pos[3])
-  local selected_text = table.concat(lines, '\n')
 
-  -- Get the URL from the system clipboard
-  local url = vim.fn.getreg('+')
 
-  -- Format the Markdown link
-  local markdown_link = string.format("[%s](%s)", selected_text, url)
 
-  -- Replace the selected text with the Markdown link
-  vim.api.nvim_buf_set_text(0, start_pos[2] - 1, start_pos[3] - 1, end_pos[2] - 1, end_pos[3], { markdown_link })
+
 end
 
 vim.api.nvim_set_keymap('v', '<leader>ml', CreateMarkdownLink(), { noremap = true, silent = true })
