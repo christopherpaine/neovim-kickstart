@@ -58,9 +58,29 @@ end
 
 
 
+local function read_file_to_var(filepath)
+    local file = io.open(filepath, "r")
+    if not file then
+        vim.notify("Could not open file: " .. filepath, vim.log.levels.ERROR)
+        return nil
+    end
+    local content = file:read("*a") -- read entire file
+    file:close()
+    return content
+end
+
+
+
+
+
+
+
+
+
+
 -- Function to prompt and insert text
 function _G.prompt_and_insert()
-  choose_item(function(chatitem)
+  local chatitem = read_file_to_var("/home/chris-jakoolit/.chats/current-chat.txt")
   vim.ui.input({ prompt = "Insert text: " }, function(input)
   local cmd2 = "sgpt --no-md --chat " .. chatitem .. " " .. vim.fn.shellescape(input)
   local output = vim.fn.system(cmd2)
@@ -71,7 +91,6 @@ function _G.prompt_and_insert()
       vim.api.nvim_put(lines, "l", true, true)
     end
   end)
-end)
 end
 
 
