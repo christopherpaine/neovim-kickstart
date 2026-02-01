@@ -96,9 +96,8 @@ end
 
 
 function _G.prompt_and_insert_code()
-  local chatitem = read_file_to_var("/home/chris-jakoolit/.chats/current-chat.txt")
   vim.ui.input({ prompt = "Insert text: " }, function(input)
-  local cmd2 = "sgpt --code " .. chatitem .. " " .. vim.fn.shellescape(input)
+  local cmd2 = "sgpt --code " .. vim.fn.shellescape(input)
   local output = vim.fn.system(cmd2)
   local lines = vim.split(output, "\n", { plain = true })
 
