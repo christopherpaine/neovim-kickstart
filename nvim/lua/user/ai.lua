@@ -7,6 +7,7 @@ local items = {}
 
 -- I am storing stuff in ~/.chats/
 function _G.refresh_chat_list()
+  items = {}
   local file = io.open("/home/chris-jakoolit/.chats/chats.csv", "r")
   if file then
       local line = file:read("*l")
@@ -38,18 +39,22 @@ function _G.choose_item(on_choice)
 end
 
 
+function writeValueToFile(filename, value)
+    local file, err = io.open(filename, "w")  -- open in write mode
+    if not file then
+        error("Could not open file: " .. err)
+    end
+    file:write(tostring(value))  -- ensure the value is a string
+    file:close()
+end
 
 
 
-
-
-
-
-
-
-
-
-
+function _G.set_current_chat()
+  choose_item(function(chatitem)
+  writeValueToFile("/home/chris-jakoolit/.chats/current-chat.txt", chatitem)
+  end)
+end
 
 
 
@@ -70,7 +75,7 @@ end)
 end
 
 
-vim.keymap.set("n", "<leader>bv", prompt_and_insert, { desc = "Prompt and insert text" })
+vim.keymap.set("n", "<leader>bv", set_current_chat, { desc = "set current chat" })
 
 
 -- Keybind (change <leader>i if you want)
