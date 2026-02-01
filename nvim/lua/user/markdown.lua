@@ -7,7 +7,7 @@ require("which-key").add({
 })
 --markdown -  insert a markdown link
 function CreateMarkdownLink()
-vim.cmd('"zy')
+vim.cmd("'<'>yank z")
 
 end
 
