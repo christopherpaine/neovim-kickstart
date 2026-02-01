@@ -7,13 +7,11 @@ require("which-key").add({
 })
 --markdown -  insert a markdown link
 function CreateMarkdownLink()
-
-
-
+vim.cmd('"zy')
 
 end
 
---vim.api.nvim_set_keymap('v', '<leader>ml', CreateMarkdownLink(), { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<leader>ml', CreateMarkdownLink(), { noremap = true, silent = true })
 
 _G.InsertFrontMatter = function(parent)
     parent = parent or "Exploration"  -- default value
