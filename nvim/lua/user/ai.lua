@@ -94,10 +94,41 @@ function _G.prompt_and_insert()
 end
 
 
-vim.keymap.set("n", "<leader>bv", set_current_chat, { desc = "set current chat" })
 
+function _G.prompt_and_insert_code()
+  local chatitem = read_file_to_var("/home/chris-jakoolit/.chats/current-chat.txt")
+  vim.ui.input({ prompt = "Insert text: " }, function(input)
+  local cmd2 = "sgpt --no-md --code --chat " .. chatitem .. " " .. vim.fn.shellescape(input)
+  local output = vim.fn.system(cmd2)
+  local lines = vim.split(output, "\n", { plain = true })
+
+
+    if output then
+      vim.api.nvim_put(lines, "l", true, true)
+    end
+  end)
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+vim.keymap.set("n", "<leader>bv", set_current_chat, { desc = "set current chat" })
 
 -- Keybind (change <leader>i if you want)
 vim.keymap.set("n", "<leader>bb", prompt_and_insert, { desc = "Prompt and insert text" })
+vim.keymap.set("n", "<leader>bc", prompt_and_insert_code, { desc = "Prompt and insert code" })
 
 
