@@ -25,8 +25,7 @@ function CreateMarkdownLink()
   vim.api.nvim_buf_set_text(0, start_pos[2] - 1, start_pos[3] - 1, end_pos[2] - 1, end_pos[3], { markdown_link })
 end
 
--- Map this function to a key combination in visual mode, for example:
-vim.api.nvim_set_keymap('v', '<leader>ml', ':<C-u>lua Link()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<leader>ml', CreateMarkdownLink, { noremap = true, silent = true })
 
 _G.InsertFrontMatter = function(parent)
     parent = parent or "Exploration"  -- default value
