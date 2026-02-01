@@ -766,6 +766,7 @@ vim.keymap.set("n", "<leader>mn", CopyFilenameNoExtToUnnamed, { desc = "Copy fil
 
 
 
+
 -- put this in lua/lookup_csv.lua or init.lua
 
 local csv_path = vim.fn.expand("~/christopherpaine_org/_data/figurative_codes.csv")
