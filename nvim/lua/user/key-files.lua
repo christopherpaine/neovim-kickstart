@@ -18,3 +18,9 @@ end, { desc = "init lua" })
 vim.keymap.set("n", "<leader>ic", function()
   OpenFile('/home/chris-jakoolit/.chats/chats.csv')
 end, { desc = "ai chats" })
+
+
+
+vim.keymap.set("n", "<leader>in", function()
+  OpenFile('/home/chris-jakoolit/christopherpaine_org/index.markdown')
+end, { desc = "chris notes" })
