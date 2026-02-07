@@ -798,6 +798,7 @@ require("user.memory")
 
 
 
+
 vim.keymap.set("n", "<leader><CR>", function()
   vim.cmd("enew")        -- new empty buffer
   vim.cmd("terminal")    -- start terminal in it
