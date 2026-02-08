@@ -800,7 +800,7 @@ require("user.memory")
 --require("user.oil")
 
 
-require("oil").setup()
+--require("oil").setup()
 
 
 vim.keymap.set("n", "<leader><CR>", function()
