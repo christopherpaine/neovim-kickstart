@@ -797,6 +797,9 @@ require("user.key-files")
 require("user.memory")
 
 
+require("oil")
+
+
 
 
 vim.keymap.set("n", "<leader><CR>", function()
