@@ -11,7 +11,7 @@ function CreateMarkdownLink()
 vim.cmd('normal! "zy')
 end
 
-vim.keymap.set('v', '<leader>ml', function() CreateMarkdownLink() end, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>ml', function() CreateMarkdownLink() end, { noremap = true, silent = true })
 
 _G.InsertFrontMatter = function(parent)
     parent = parent or "Exploration"  -- default value
