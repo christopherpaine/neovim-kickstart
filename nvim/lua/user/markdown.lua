@@ -8,12 +8,7 @@ require("which-key").add({
 --markdown -  insert a markdown link
 function CreateMarkdownLink()
 
-vim.api.nvim_command('normal! i[')
-vim.api.nvim_command('normal! "ap')
-vim.api.nvim_command('normal! i]')
-vim.api.nvim_command('normal! i(')
-vim.api.nvim_command('normal! "sp')
-vim.api.nvim_command('normal! i)')
+vim.api.nvim_put({ "[" .. vim.fn.getreg("a") .. "](" .. vim.fn.getreg("s") .. ")" }, "c", true, true)
 end
 
 vim.keymap.set('n', '<leader>ml', function() CreateMarkdownLink() end, { noremap = true, silent = true })
