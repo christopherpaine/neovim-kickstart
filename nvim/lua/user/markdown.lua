@@ -8,11 +8,19 @@ require("which-key").add({
 --markdown -  insert a markdown link
 function CreateMarkdownLink()
 
+vim.api.nvim_command('normal! i[')
 vim.api.nvim_command('normal! "ap')
+vim.api.nvim_command('normal! i]')
+vim.api.nvim_command('normal! i(')
 vim.api.nvim_command('normal! "sp')
+vim.api.nvim_command('normal! i)')
 end
 
 vim.keymap.set('n', '<leader>ml', function() CreateMarkdownLink() end, { noremap = true, silent = true })
+
+
+
+
 
 _G.InsertFrontMatter = function(parent)
     parent = parent or "Exploration"  -- default value
