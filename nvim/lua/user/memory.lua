@@ -68,3 +68,32 @@ end
 
 
 vim.keymap.set('n', '<Leader>mab', add_next_base_id, {desc = "Add next base_id within the brackets"})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
