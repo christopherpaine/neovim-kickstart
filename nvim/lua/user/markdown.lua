@@ -5,6 +5,9 @@ require("which-key").add({
 require("which-key").add({
   { "<leader>mf", group = "frontmatter" },
 })
+require("which-key").add({
+  { "<leader>mi", group = "include liquid" },
+})
 --markdown -  insert a markdown link
 function CreateMarkdownLink()
 
@@ -15,7 +18,7 @@ vim.keymap.set('n', '<leader>ml', function() CreateMarkdownLink() end, { noremap
 
 
 
-
+--FRONTMATTER---------------------------------------------------
 
 _G.InsertFrontMatter = function(parent)
     parent = parent or "Exploration"  -- default value
@@ -45,3 +48,17 @@ vim.keymap.set(
   function() InsertFrontMatter("none") end,
   { noremap = true, silent = true, desc = 'none' }
 )
+
+
+--LIQUID---------------------------------------------------
+
+function Include_mp3()
+
+vim.api.nvim_put({ "{% include mp3.html file='' %}" }, "c", true, true)
+end
+
+
+
+
+
+
