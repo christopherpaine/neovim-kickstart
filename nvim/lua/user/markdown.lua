@@ -54,7 +54,7 @@ vim.keymap.set(
 
 function Include_mp3()
 
-vim.api.nvim_put({ "{% include mp3.html file='' %}" }, "c", true, true)
+vim.api.nvim_put({ "{% include mp3.html file='/private_assets/' %}" }, "c", true, true)
 end
 
 
