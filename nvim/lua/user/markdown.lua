@@ -57,11 +57,16 @@ function Include_mp3()
 vim.api.nvim_put({ "{% include mp3.html file='/private_assets/' %}" }, "c", true, true)
 end
 
+function Include_mp4()
+
+vim.api.nvim_put({ "{% include mp3.html file='/private_assets/' %}" }, "c", true, true)
+end
 function Include_img600()
 
 vim.api.nvim_put({ "{% include img600px.html file='/images/' %}" }, "c", true, true)
 end
 
+vim.keymap.set('n', '<leader>miv', function() Include_mp4() end, { noremap = true, silent = true, desc = 'include mp3' })
 vim.keymap.set('n', '<leader>mim', function() Include_mp3() end, { noremap = true, silent = true, desc = 'include mp3' })
 vim.keymap.set('n', '<leader>mii', function() Include_img600() end, { noremap = true, silent = true, desc = 'include 600px image' })
 
