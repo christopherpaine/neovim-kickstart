@@ -59,7 +59,7 @@ end
 
 function Include_img600()
 
-vim.api.nvim_put({ "{% include mp3.html file='/private_assets/' %}" }, "c", true, true)
+vim.api.nvim_put({ "{% include img600px.html file='/images/' %}" }, "c", true, true)
 end
 
 vim.keymap.set('n', '<leader>mim', function() Include_mp3() end, { noremap = true, silent = true, desc = 'include mp3' })
