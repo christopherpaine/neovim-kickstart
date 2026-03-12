@@ -8,6 +8,13 @@ require("which-key").add({
 require("which-key").add({
   { "<leader>mi", group = "include liquid" },
 })
+
+require("which-key").add({
+  { "<leader>mr", group = "memory encoding" },
+})
+
+
+
 --markdown -  insert a markdown link
 function CreateMarkdownLink()
 
@@ -59,7 +66,7 @@ end
 
 function Include_mp4()
 
-vim.api.nvim_put({ "{% include mp3.html file='/private_assets/' %}" }, "c", true, true)
+vim.api.nvim_put({ "{% include mp4.html file='/private_assets/' %}" }, "c", true, true)
 end
 function Include_img600()
 
