@@ -14,7 +14,7 @@ require("which-key").add({
 })
 
 require("which-key").add({
-  { "<leader>mr", group = "memory encoding", mode="v" },
+  { "<leader>mr", group = "figurative codes", mode="v" },
 })
 
 
