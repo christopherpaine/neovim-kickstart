@@ -13,6 +13,9 @@ require("which-key").add({
   { "<leader>mr", group = "memory encoding" },
 })
 
+require("which-key").add({
+  { "<leader>mr", group = "memory encoding", mode="v" },
+})
 
 
 --markdown -  insert a markdown link
