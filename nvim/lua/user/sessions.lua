@@ -44,7 +44,7 @@ end
 
 
 function choose_item(on_choice)
-  refresh_chat_list()
+  getVimFiles()
   pickers.new({}, {
     prompt_title = "Choose an Item",
     finder = finders.new_table {
