@@ -42,5 +42,39 @@ end
 -- end
 
 
+function choose_item(on_choice)
+  refresh_chat_list()
+  pickers.new({}, {
+    prompt_title = "Choose an Item",
+    finder = finders.new_table {
+      results = items,
+    },
+    sorter = conf.generic_sorter({}),
+    attach_mappings = function(prompt_bufnr)
+      actions.select_default:replace(function()
+        actions.close(prompt_bufnr)
+        local selection = action_state.get_selected_entry()
+        on_choice(selection[1])  -- ← hand it back
+      end)
+      return true
+    end,
+  }):find()
+end
 
-vim.api.nvim_set_keymap('n', '<leader>os', ':lua getVimFiles("/home/chris-jakoolit/christopherpaine_org/_sessions")<CR>', { noremap = true, silent = true })
+
+function _G.set_current_session()
+  choose_item(function(item)
+
+
+vim.cmd('source ' .. item)
+
+
+  writeValueToFile("/home/chris-jakoolit/christopherpaine_org/_sessions/", item)
+  end)
+end
+
+
+
+
+
+vim.api.nvim_set_keymap('n', '<leader>os', ':lua set_current_session<CR>', { noremap = true, silent = true })
