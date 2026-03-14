@@ -733,6 +733,7 @@ require("user.markdown")
 require("user.ai")
 require("user.key-files")
 require("user.memory")
+require("user.sessions")
 
 
 --require("user.oil")
