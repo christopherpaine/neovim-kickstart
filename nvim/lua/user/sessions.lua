@@ -72,5 +72,5 @@ end
 
 
 
+vim.keymap.set('n', '<leader>os', function() set_current_session() end, { desc = "change session" ,noremap = true, silent = true })
 
-vim.api.nvim_set_keymap('n', '<leader>os', ':lua set_current_session<CR>', { noremap = true, silent = true })
