@@ -513,13 +513,6 @@ end
 
 
 
-local function get_visual_selection2()
--- Yank the current visual selection into register z and return it
-vim.cmd('normal! "zy')   -- reselect visual area and yank into 'z'
-local selection = vim.fn.getreg('z')
-vim.notify(selection)
-return selection
-end
 
 
 
@@ -531,28 +524,6 @@ end
 
 
 
-function InsertFigurativeCodesFromVisual()
-  local name = get_visual_selection2()
-  if name == "" then return end
-
-  local lines = {
-    "  - name:  " .. name,
-    "    query: |",
-    "      SELECT interpretation as term, image",
-    "      FROM figurative_codes",
-    "      WHERE fig_id in ('F058')",
-    "    output_file: " .. name .. ".html",
-    "    caption: \"relevant figurative codes\"",
-  }
-
-  local row = vim.api.nvim_win_get_cursor(0)[1]
-  vim.api.nvim_buf_set_lines(0, row, row, false, lines)
-end
-
-
-vim.keymap.set("v", "<leader>msf", InsertFigurativeCodesFromVisual, {
-  desc = "SQL table for figurative codes",
-})
 
 
 
@@ -648,6 +619,13 @@ end
 vim.keymap.set('n', '<leader>mts', InsertIncludeFromRegister, { noremap = true, silent = true, desc = "inclue the sql table" })
 
 
+function _G.get_visual_selection2()
+-- Yank the current visual selection into register z and return it
+vim.cmd('normal! "zy')   -- reselect visual area and yank into 'z'
+local selection = vim.fn.getreg('z')
+vim.notify(selection)
+return selection
+end
 
 
 function _G.visual_append_to_filename()
@@ -707,52 +685,8 @@ vim.keymap.set("n", "<leader>mn", CopyFilenameNoExtToUnnamed, { desc = "Copy fil
 
 
 
--- put this in lua/lookup_csv.lua or init.lua
-
-local csv_path = vim.fn.expand("~/christopherpaine_org/_data/figurative_codes.csv")
 
 
-
-
-
-function _G.lookup_csv_by_second_field()
-  local key = get_visual_selection2()
-  if key == "" then return end
-
-  for line in io.lines(csv_path) do
-    local f1, f2 = line:match("^%s*([^,]+),%s*([^,]+)")
-    if f2 and vim.trim(f2) == key then
--- this bit puts what was found into register
-      vim.fn.setreg('"', vim.trim(f1))
-      return
-    end
-  end
-
-  vim.notify("No match found for: " .. key, vim.log.levels.WARN)
-end
-
-vim.keymap.set("v", "<leader>mff",lookup_csv_by_second_field , { silent = true, desc = "get fig code description" })
-
-
-
-
-function _G.lookup_csv_by_second_field_with_loop()
-  local selection = get_visual_selection2()
-vim.fn.setreg('"', "")
-for key in selection:gmatch("%S+") do
-  for line in io.lines(csv_path) do
-    local f1, f2 = line:match("^%s*([^,]+),%s*([^,]+)")
-    if f2 and vim.trim(f2) == key then
-      local cur = vim.fn.getreg('"')
-     vim.fn.setreg('"', cur .. "'" .. vim.trim(f1) .. "',")
-      -- vim.fn.setreg('"', cur .. vim.trim(f1) )
-      break
-    end
-    end
-    end
-    end
-
-vim.keymap.set("v", "<leader>mfl",lookup_csv_by_second_field_with_loop , { silent = true, desc = "get fig code description for multiple words" })
 
 
 
