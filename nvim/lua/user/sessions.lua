@@ -25,6 +25,7 @@ vim.api.nvim_set_keymap('n', '<leader>ot', ':lua toggle_obsession()<CR>', { nore
 
 
 function getVimFiles(folderPath)
+    local items = {}
     local p = io.popen('ls "'..folderPath..'"')
     for file in p:lines() do
         if file:match("%.vim$") then
@@ -64,12 +65,7 @@ end
 
 function _G.set_current_session()
   choose_item(function(item)
-
-
-vim.cmd('source ' .. item)
-
-
-  writeValueToFile("/home/chris-jakoolit/christopherpaine_org/_sessions/", item)
+vim.cmd('source ' .. "/home/chris-jakoolit/christopherpaine_org/_sessions/" .. item)
   end)
 end
 
