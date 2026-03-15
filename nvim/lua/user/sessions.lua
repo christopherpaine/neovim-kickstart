@@ -42,7 +42,7 @@ end
 -- end
 
 
-function choose_item(on_choice)
+function choose_session_item(on_choice)
   local items = getVimFiles("/home/chris-jakoolit/christopherpaine_org/_sessions")
   pickers.new({}, {
     prompt_title = "Choose an Item",
@@ -63,7 +63,7 @@ end
 
 
 function _G.set_current_session()
-  choose_item(function(item)
+  choose_session_item(function(item)
 local mychoice = "/home/chris-jakoolit/christopherpaine_org/_sessions/" .. item
 
     vim.cmd('Obsession ')--toggles obsession off assuming started with it on
