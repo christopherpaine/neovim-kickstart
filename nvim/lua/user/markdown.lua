@@ -3,12 +3,12 @@
 local wk = require("which-key")
 
 wk.add({
+{ "<leader>m", group = "chris notes" },
+{ "<leader>mf", group = "frontmatter" },
 { "<leader>mf", group = "figurative codes", mode="v" },
 { "<leader>ml", group = "markdown links" },
 { "<leader>mla", group = "markdown link reg a nd reg b" },
 { "<leader>mi", group = "include liquid" },
-{ "<leader>mf", group = "frontmatter" },
-{ "<leader>m", group = "chris notes" }
 })
 
 
@@ -24,7 +24,7 @@ wk.add({
 
 function markdownlinkstarter()
 
-vim.cmd('normal! "+pviw(')
+vim.cmd('normal! pviw(')
 
 end
 
