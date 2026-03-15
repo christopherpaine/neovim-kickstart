@@ -21,18 +21,11 @@ function markdownlinkstarter()
   -- Paste from default register
   vim.cmd('normal! pb')     
   -- Insert opening parenthesis
-  --vim.cmd('normal! i(')
+  vim.cmd('normal! i(')
   -- Exit insert mode
   vim.cmd('stopinsert')    -- safer than trying to send <Esc> in normal mode
 end
 
--- markdown link functions
-function markdownlinkstarter()
-  vim.cmd(normal! pb)
-  vim.cmd([[normal i(]])
-  -- Using vim.cmd
-  vim.cmd('normal! <Esc>')
-end
 
 
 
