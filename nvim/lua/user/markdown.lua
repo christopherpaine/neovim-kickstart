@@ -1,30 +1,15 @@
 --which key settings for chris notes and front matter
-require("which-key").add({
-  { "<leader>m", group = "chris notes" },
-})
-require("which-key").add({
-  { "<leader>mf", group = "frontmatter" },
-})
-require("which-key").add({
-  { "<leader>mi", group = "include liquid" },
-})
 
-require("which-key").add({
-  { "<leader>mr", group = "memory encoding" },
-})
-require("which-key").add({
-  { "<leader>mla", group = "markdown link reg a nd reg b" },
-})
-require("which-key").add({
-  { "<leader>ml", group = "markdown links" },
-})
-require("which-key").add({
-  { "<leader>mf", group = "figurative codes", mode="v" },
-})
+local wk = require("which-key")
 
-
-
-
+wk.add({
+{ "<leader>mf", group = "figurative codes", mode="v" },
+{ "<leader>ml", group = "markdown links" },
+{ "<leader>mla", group = "markdown link reg a nd reg b" },
+{ "<leader>mi", group = "include liquid" },
+{ "<leader>mf", group = "frontmatter" },
+{ "<leader>m", group = "chris notes" }
+})
 
 
 
@@ -39,7 +24,7 @@ require("which-key").add({
 
 function markdownlinkstarter()
 
-vim.cmd('normal! "qpviw(')
+vim.cmd('normal! "+pviw(')
 
 end
 
