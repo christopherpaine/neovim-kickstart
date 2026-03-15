@@ -24,7 +24,7 @@ vim.api.nvim_set_keymap('n', '<leader>ot', ':lua toggle_obsession()<CR>', { nore
 
 
 function getVimFiles(folderPath)
-    local items = {}
+    local items = {"hi there"}
     local p = io.popen('ls "'..folderPath..'"')
     for file in p:lines() do
         if file:match("%.vim$") then
