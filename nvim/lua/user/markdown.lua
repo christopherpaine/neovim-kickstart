@@ -12,10 +12,25 @@ require("which-key").add({
 require("which-key").add({
   { "<leader>mr", group = "memory encoding" },
 })
+require("which-key").add({
+  { "<leader>mla", group = "markdown link reg a nd reg b" },
+})
+require("which-key").add({
+  { "<leader>ml", group = "markdown links" },
+})
+
 
 require("which-key").add({
   { "<leader>mf", group = "figurative codes", mode="v" },
 })
+
+
+function markdownlinkstarter()
+
+vim.cmd('normal! "qpviw(')
+
+end
+
 
 
 --markdown -  insert a markdown link
@@ -24,7 +39,7 @@ function CreateMarkdownLink()
 vim.api.nvim_put({ "[" .. vim.fn.getreg("a") .. "](" .. vim.fn.getreg("s") .. ")" }, "c", true, true)
 end
 
-vim.keymap.set('n', '<leader>ml', function() CreateMarkdownLink() end, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>mla', function() CreateMarkdownLink() end, { noremap = true, silent = true })
 
 
 
