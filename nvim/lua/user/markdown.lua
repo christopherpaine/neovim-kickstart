@@ -24,6 +24,12 @@ function markdownlinkstarter()
   vim.cmd('normal! i(')
   -- Exit insert mode
   vim.cmd('stopinsert')    -- safer than trying to send <Esc> in normal mode
+
+  vim.cmd('normal! b')     
+
+
+  vim.cmd('normal! a)')
+  vim.cmd('stopinsert')    -- safer than trying to send <Esc> in normal mode
 end
 
 
