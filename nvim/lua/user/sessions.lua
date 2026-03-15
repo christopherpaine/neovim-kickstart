@@ -1,5 +1,4 @@
-local pickers = require("telescope.pickers")
-local finders = require("telescope.finders")
+local pickers = require("telescope.pickers") local finders = require("telescope.finders")
 local actions = require("telescope.actions")
 local action_state = require('telescope.actions.state')
 local conf = require('telescope.config').values
@@ -44,7 +43,7 @@ end
 
 
 function choose_item(on_choice)
-  getVimFiles()
+  getVimFiles("/home/chris-jakoolit/christopherpaine_org/_sessions/")
   pickers.new({}, {
     prompt_title = "Choose an Item",
     finder = finders.new_table {
