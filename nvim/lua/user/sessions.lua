@@ -70,10 +70,9 @@ local mychoice = "/home/chris-jakoolit/christopherpaine_org/_sessions/" .. item
 
 
 vim.cmd('bufdo bwipeout')
-
+vim.cmd('source ' .. mychoice)
 
     vim.cmd('Obsession ' .. mychoice)
-vim.cmd('source ' .. mychoice)
   end)
 end
 
