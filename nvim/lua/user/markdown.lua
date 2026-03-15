@@ -5,33 +5,25 @@ local wk = require("which-key")
 wk.add({
 { "<leader>m", group = "chris notes" },
 { "<leader>mf", group = "frontmatter" },
+
 { "<leader>mf", group = "figurative codes", mode="v" },
+
 { "<leader>ml", group = "markdown links" },
 { "<leader>mla", group = "markdown link reg a nd reg b" },
+
 { "<leader>mi", group = "include liquid" },
 })
 
 
-
-
-
-
-
-
-
-
-
-
+-- markdown link functions
 function markdownlinkstarter()
 
-vim.cmd('normal! pviw(')
-
+vim.cmd([[normal! "qpviwb(i<Esc>ea)]])
 end
 
 vim.keymap.set('n', '<leader>mlp', function() markdownlinkstarter() end, { noremap = true, silent = true, desc = 'paste " register' })
 
 
---markdown -  insert a markdown link
 function CreateMarkdownLink()
 
 vim.api.nvim_put({ "[" .. vim.fn.getreg("a") .. "](" .. vim.fn.getreg("s") .. ")" }, "c", true, true)
