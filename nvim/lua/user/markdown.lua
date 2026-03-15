@@ -18,11 +18,23 @@ require("which-key").add({
 require("which-key").add({
   { "<leader>ml", group = "markdown links" },
 })
-
-
 require("which-key").add({
   { "<leader>mf", group = "figurative codes", mode="v" },
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 function markdownlinkstarter()
@@ -31,6 +43,7 @@ vim.cmd('normal! "qpviw(')
 
 end
 
+vim.keymap.set('n', '<leader>mlp', function() markdownlinkstarter() end, { noremap = true, silent = true, desc = 'paste " register' })
 
 
 --markdown -  insert a markdown link
