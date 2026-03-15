@@ -15,10 +15,16 @@ wk.add({
 })
 
 
+
+
+
 -- markdown link functions
 function markdownlinkstarter()
 
-vim.cmd([[normal! "qpviwb(i<Esc>ea)]])
+vim.cmd(normal! pb)
+vim.cmd([[normal i(]])
+-- Using vim.cmd
+vim.cmd('normal! <Esc>')
 end
 
 vim.keymap.set('n', '<leader>mlp', function() markdownlinkstarter() end, { noremap = true, silent = true, desc = 'paste " register' })
