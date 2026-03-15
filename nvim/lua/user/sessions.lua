@@ -64,7 +64,16 @@ end
 
 function _G.set_current_session()
   choose_item(function(item)
-vim.cmd('source ' .. "/home/chris-jakoolit/christopherpaine_org/_sessions/" .. item)
+local mychoice = "/home/chris-jakoolit/christopherpaine_org/_sessions/" .. item
+
+    vim.cmd('Obsession ')--toggles obsession off assuming started with it on
+
+
+vim.cmd('bufdo bwipeout')
+
+
+    vim.cmd('Obsession ' .. mychoice)
+vim.cmd('source ' .. mychoice)
   end)
 end
 
