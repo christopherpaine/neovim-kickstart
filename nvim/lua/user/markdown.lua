@@ -17,23 +17,32 @@ wk.add({
 
 
 
+function markdownlinkstarter()
+  -- Paste from default register
+  vim.cmd('normal! pb')     
+  -- Insert opening parenthesis
+  vim.cmd('normal! i(')
+  -- Exit insert mode
+  vim.cmd('stopinsert')    -- safer than trying to send <Esc> in normal mode
+end
 
 -- markdown link functions
 function markdownlinkstarter()
-
-vim.cmd(normal! pb)
-vim.cmd([[normal i(]])
--- Using vim.cmd
-vim.cmd('normal! <Esc>')
+  vim.cmd(normal! pb)
+  vim.cmd([[normal i(]])
+  -- Using vim.cmd
+  vim.cmd('normal! <Esc>')
 end
 
-vim.keymap.set('n', '<leader>mlp', function() markdownlinkstarter() end, { noremap = true, silent = true, desc = 'paste " register' })
 
 
 function CreateMarkdownLink()
-
-vim.api.nvim_put({ "[" .. vim.fn.getreg("a") .. "](" .. vim.fn.getreg("s") .. ")" }, "c", true, true)
+  vim.api.nvim_put({ "[" .. vim.fn.getreg("a") .. "](" .. vim.fn.getreg("s") .. ")" }, "c", true, true)
 end
+
+
+vim.keymap.set('n', '<leader>mlp', function() markdownlinkstarter() end, { noremap = true, silent = true, desc = 'paste " register' })
+
 
 vim.keymap.set('n', '<leader>mla', function() CreateMarkdownLink() end, { noremap = true, silent = true })
 
