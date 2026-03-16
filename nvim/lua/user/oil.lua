@@ -3,6 +3,9 @@
 --end, {})
 
 
+vim.api.nvim_exec([[
+  autocmd FileType oil setlocal buflisted
+]], false)
 
 
 vim.keymap.set('n', '<leader>oo', function()
