@@ -31,7 +31,7 @@ vim.opt.scrolloff = 999
 
 
 require("bufferline").setup{}
-
+require("oil").setup{}
 
 
 
