@@ -10,6 +10,25 @@ require("which-key").add({
 
 
 
+local function create_neovim_session()
+  print("Enter session name:")
+  local session_name = io.read()
+  if session_name and session_name ~= "" then
+    local command = "mksession! " .. "_sessions/" .. session_name .. ".vim"
+    vim.cmd(command)
+    print("Session '" .. session_name .. "' created.")
+  else
+    print("Invalid session name.")
+  end
+end
+
+create_neovim_session()
+
+
+vim.keymap.set('n', '<leader>on', function() create_neovim_session() end, { desc = "new session" ,noremap = true, silent = true })
+
+
+
 function toggle_obsession()
   if vim.fn.exists(':Obsession') == 2 then
     vim.cmd('Obsession')
