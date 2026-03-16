@@ -5,7 +5,7 @@ local conf = require('telescope.config').values
 local items = {}
 
 require("which-key").add({
-  { "<leader>o", group = "obsession and oil" },
+  { "<leader>o", group = "obsession" },
 })
 
 
