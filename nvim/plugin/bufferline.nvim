@@ -11,6 +11,11 @@ require("bufferline").setup{
     show_buffer_close_icons = false,
     show_close_icon = false,
     separator_style = "slant",
+
+    custom_filter = function(buf)
+      local bt = vim.bo[buf].buftype
+      return bt == "" or bt == "help"
+    end,
   }
 }
 
