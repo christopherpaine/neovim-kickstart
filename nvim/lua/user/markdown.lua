@@ -21,7 +21,7 @@ function markdownlinkstarter()
   vim.cmd('normal! i(')
   vim.cmd('stopinsert')    -- safer than trying to send <Esc> in normal mode
   -- Paste from default register
-  vim.cmd('normal! pb')
+  vim.cmd('normal! p')
   vim.cmd('normal! a)')
 end
 
