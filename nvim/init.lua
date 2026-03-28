@@ -4,6 +4,9 @@ vim.loader.enable()
 
 
 
+
+
+
 --things are clear now
 
 
@@ -136,8 +139,9 @@ vim.api.nvim_set_keymap('i', '<C-s>', '<Esc>:w<CR>a', { noremap = true, silent =
 
 
 --copy and paste to system clipboard
-vim.keymap.set('v', '<A-c>', '"+y', { noremap = true, silent = true })
-vim.keymap.set('n', '<A-v>', ':put +<CR>', { noremap = true, silent = true })
+vim.keymap.set('v', '<C-c>', '"+y', { noremap = true, silent = true })
+vim.keymap.set('n', '<C-v>', ':put +<CR>', { noremap = true, silent = true })
+vim.keymap.set('i', '<C-v>', '<Esc>:put +<CR>a', { noremap = true, silent = true })
 
 --open netrw
 vim.keymap.set('n', '<leader>n', vim.cmd.Ex, { desc = 'Open netrw' })
