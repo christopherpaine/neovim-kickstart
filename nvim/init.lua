@@ -718,6 +718,9 @@ end, { desc = '[t]elescope live grep with clipboard prefill for personal website
 
 function _G.newfilewithfrontmatter()
 
+  vim.cmd('normal! "ay')
+  vim.cmd('normal! gv')
+
 -- Save current buffer
 local cur_buf = vim.api.nvim_get_current_buf()
   visual_append_to_filename()
@@ -734,6 +737,21 @@ end
 
 
 vim.keymap.set("v", "<leader>mm",newfilewithfrontmatter , { silent = true, desc = "new file with front matter" })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 require("user.closing")
