@@ -129,9 +129,11 @@ vim.g.sqlite_clib_path = require('luv').os_getenv('LIBSQLITE')
 
 
 
+--save buffer
+vim.api.nvim_set_keymap('n', '<C-s>', ':w<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('i', '<C-s>', '<Esc>:w<CR>a', { noremap = true, silent = true })
 
---save file
-vim.keymap.set('n', '<A-w>', ':w<CR>', { noremap = true, silent = true })
+
 
 --copy and paste to system clipboard
 vim.keymap.set('v', '<A-c>', '"+y', { noremap = true, silent = true })
