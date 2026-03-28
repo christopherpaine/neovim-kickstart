@@ -138,6 +138,8 @@ vim.api.nvim_set_keymap('i', '<C-s>', '<Esc>:w<CR>a', { noremap = true, silent =
 
 
 
+
+
 --copy and paste to system clipboard
 vim.keymap.set('v', '<C-c>', '"+y', { noremap = true, silent = true })
 vim.keymap.set('n', '<C-v>', ':put +<CR>', { noremap = true, silent = true })

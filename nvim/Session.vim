@@ -13,37 +13,10 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +113 init.lua
-badd +24 ~/NixOS-Hyprland/home-manager/scripts/youtube_functions.sh
+badd +20 ~/NixOS-Hyprland/home-manager/scripts/youtube_functions.sh
 argglobal
 %argdel
 $argadd init.lua
-edit ~/NixOS-Hyprland/home-manager/scripts/youtube_functions.sh
-wincmd t
-let s:save_winminheight = &winminheight
-let s:save_winminwidth = &winminwidth
-set winminheight=0
-set winheight=1
-set winminwidth=0
-set winwidth=1
-argglobal
-setlocal fdm=manual
-setlocal fde=nvim_treesitter#foldexpr()
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-silent! normal! zE
-let &fdl = &fdl
-let s:l = 24 - ((16 * winheight(0) + 17) / 34)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 24
-normal! 0
-lcd ~/neovim-kickstart/nvim
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
@@ -51,8 +24,6 @@ endif
 unlet! s:wipebuf
 set winheight=1 winwidth=20
 let &shortmess = s:shortmess_save
-let &winminheight = s:save_winminheight
-let &winminwidth = s:save_winminwidth
 let s:sx = expand("<sfile>:p:r")."x.vim"
 if filereadable(s:sx)
   exe "source " . fnameescape(s:sx)
@@ -60,6 +31,8 @@ endif
 let &g:so = s:so_save | let &g:siso = s:siso_save
 set hlsearch
 nohlsearch
+let g:this_session = v:this_session
+let g:this_obsession = v:this_session
 doautoall SessionLoadPost
 unlet SessionLoad
 " vim: set ft=vim :
