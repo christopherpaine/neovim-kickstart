@@ -730,8 +730,8 @@ local cur_buf = vim.api.nvim_get_current_buf()
 vim.api.nvim_set_current_buf(cur_buf)
 
 -- in Lua
-vim.cmd([[normal! /<C-r>a<CR>]])
-
+vim.cmd('normal! /<C-r>a<CR>')
+vim.cmd('normal! S[')
 end
 
 
