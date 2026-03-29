@@ -732,7 +732,7 @@ vim.api.nvim_set_current_buf(cur_buf)
 -- in Lua
 vim.cmd('normal! /<C-r>a<CR>')
 vim.cmd("normal! `<i[")
-vim.cmd("normal! `>la]")
+vim.cmd("normal! `>la] ")
 end
 
 vim.keymap.set("v", "<leader>mm",newfilewithfrontmatter , { silent = true, desc = "new file with front matter" })
