@@ -34,7 +34,7 @@ vim.opt.scrolloff = 999
 
 
 require("bufferline").setup{}
-require("oil").setup{show_hidden = true}
+require("oil").setup{view_options = {show_hidden = true}}
 
 
 
