@@ -88,9 +88,19 @@ function Include_img600()
 vim.api.nvim_put({ "{% include img600px.html file='/images/' %}" }, "c", true, true)
 end
 
+
+
+function Include_kitty_button()
+vim.api.nvim_put({'% include buttons/open-kitty.html file="/home/chris-jakoolit/" %'},true,true)
+end
+
+
+
+
 vim.keymap.set('n', '<leader>miv', function() Include_mp4() end, { noremap = true, silent = true, desc = 'include mp3' })
 vim.keymap.set('n', '<leader>mim', function() Include_mp3() end, { noremap = true, silent = true, desc = 'include mp3' })
 vim.keymap.set('n', '<leader>mii', function() Include_img600() end, { noremap = true, silent = true, desc = 'include 600px image' })
+vim.keymap.set('n', '<leader>mik', function() Include_kitty_button() end, { noremap = true, silent = true, desc = 'include 600px image' })
 
 
 
