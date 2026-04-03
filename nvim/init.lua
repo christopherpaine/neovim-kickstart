@@ -34,7 +34,7 @@ vim.opt.scrolloff = 999
 
 
 require("bufferline").setup{}
-require("oil").setup{}
+require("oil").setup{show_hidden = true}
 
 
 
@@ -761,13 +761,8 @@ require("user.memory")
 require("user.sessions")
 
 
---require("user.oil")
+require("user.oil")
 
--- oil.lua
-require("oil").setup({
-    show_hidden = true,
-    -- other options you may have
-})
 
 --require("oil").setup()
 
