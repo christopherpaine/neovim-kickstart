@@ -75,23 +75,18 @@ vim.keymap.set(
 --LIQUID---------------------------------------------------
 
 function Include_mp3()
-
 vim.api.nvim_put({ "{% include mp3.html file='/private_assets/' %}" }, "c", true, true)
 end
 
 function Include_mp4()
-
 vim.api.nvim_put({ "{% include mp4.html file='/private_assets/' %}" }, "c", true, true)
 end
 function Include_img600()
-
 vim.api.nvim_put({ "{% include img600px.html file='/images/' %}" }, "c", true, true)
 end
 
-
-
 function Include_kitty_button()
-vim.api.nvim_put('{% include buttons/open-kitty.html file="/home/chris-jakoolit/" %}',true,true)
+vim.api.nvim_put({'{% include buttons/open-kitty.html file="/home/chris-jakoolit/" %}'},"c",true,true)
 end
 
 
