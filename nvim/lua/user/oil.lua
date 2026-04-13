@@ -13,3 +13,19 @@ vim.api.nvim_exec([[
 vim.keymap.set('n', '<leader>oo', function()
     vim.cmd('Oil')
 end, { desc = "oil" })
+
+
+
+
+vim.keymap.set('n', '<leader>od', function()
+  -- Save current buffer
+  local buf = vim.api.nvim_get_current_buf()
+
+  -- Open Oil
+  vim.cmd('Oil')
+
+  -- Delete the previous buffer (force = false so it won’t kill unsaved work)
+  if vim.api.nvim_buf_is_valid(buf) then
+    vim.api.nvim_buf_delete(buf, { force = false })
+  end
+end, { desc = "oil and delete previous buffer" })
