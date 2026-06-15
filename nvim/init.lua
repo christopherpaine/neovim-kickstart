@@ -791,6 +791,15 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
 })
 
 
+vim.api.nvim_create_autocmd("BufWinLeave", {
+  pattern = "*",
+  callback = function()
+    local buftype = vim.bo.buftype
+    if vim.fn.expand("%") ~= "" and buftype == "" then
+      vim.cmd("mkview")
+    end
+  end
+})
 
 --nothing
 
