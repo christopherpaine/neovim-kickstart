@@ -777,29 +777,6 @@ end, { desc = "Terminal in new buffer" })
 
 
 
--- save folds automatically
-vim.opt.viewoptions = "folds,cursor"
-
-vim.api.nvim_create_autocmd("BufWinLeave", {
-  pattern = "*",
-  command = "mkview"
-})
-
-vim.api.nvim_create_autocmd("BufWinEnter", {
-  pattern = "*",
-  command = "silent! loadview"
-})
-
-
-vim.api.nvim_create_autocmd("BufWinLeave", {
-  pattern = "*",
-  callback = function()
-    local buftype = vim.bo.buftype
-    if vim.fn.expand("%") ~= "" and buftype == "" then
-      vim.cmd("mkview")
-    end
-  end
-})
 
 --nothing
 
