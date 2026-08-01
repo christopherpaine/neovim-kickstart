@@ -762,6 +762,7 @@ require("user.sessions")
 
 
 require("user.oil")
+require("user.wallust")
 
 
 --require("oil").setup()
