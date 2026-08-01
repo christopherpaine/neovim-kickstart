@@ -1,10 +1,16 @@
 -- Applies the wallust-generated hyprland-match.conf palette as Neovim
 -- highlight groups, mirroring how kitty picks up the same file.
--- Run :Wallust to re-read the file after wallust regenerates it.
+-- Run :Wallust to re-read the file after wallust regenerates it, or
+-- :Wallust light / :Wallust dark to switch palettes.
 
 local M = {}
 
-local palette_file = vim.fn.expand('~/hyprland-match.conf')
+local palette_files = {
+  dark = vim.fn.expand('~/hyprland-match.conf'),
+  light = vim.fn.expand('~/hyprland-match-light.conf'),
+}
+
+M.mode = 'dark'
 
 local function parse_palette(path)
   local f = io.open(path, 'r')
@@ -24,14 +30,23 @@ local function parse_palette(path)
   return colors
 end
 
-function M.load()
+function M.load(mode)
+  mode = mode or M.mode
+  if mode ~= 'dark' and mode ~= 'light' then
+    vim.notify('wallust: unknown mode ' .. tostring(mode) .. ' (use dark or light)', vim.log.levels.ERROR)
+    return
+  end
+
+  local palette_file = palette_files[mode]
   local c = parse_palette(palette_file)
   if not c then
     return
   end
 
+  M.mode = mode
+
   vim.o.termguicolors = true
-  vim.o.background = 'dark'
+  vim.o.background = mode
   vim.cmd('highlight clear')
   if vim.fn.exists('syntax_on') == 1 then
     vim.cmd('syntax reset')
@@ -92,11 +107,18 @@ function M.load()
     vim.g['terminal_color_' .. i] = c['color' .. i]
   end
 
-  vim.notify('wallust colors reloaded from ' .. palette_file, vim.log.levels.INFO)
+  vim.notify('wallust colors reloaded (' .. mode .. ') from ' .. palette_file, vim.log.levels.INFO)
 end
 
-vim.api.nvim_create_user_command('Wallust', M.load, {
-  desc = 'Reload colors from ~/hyprland-match.conf (wallust palette)',
+vim.api.nvim_create_user_command('Wallust', function(opts)
+  local mode = opts.args ~= '' and opts.args or nil
+  M.load(mode)
+end, {
+  nargs = '?',
+  complete = function()
+    return { 'dark', 'light' }
+  end,
+  desc = 'Reload wallust colors; optionally pass dark or light to switch palettes',
 })
 
 M.load()
